@@ -1,0 +1,162 @@
+body{
+    background-color: black;
+}
+
+#player{
+    width: 100%;
+    height: 70vh;
+}
+
+.content_title, #video_user_name{
+    color: white;
+    font-size: large;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#video_title{
+    color: white;
+    font-size: x-large;
+}
+
+#explanation{
+    color: white;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.content_description, .content_user_name, #subscriber, #view_more, #briefly{
+    color: gray;
+    font-size: small;
+}
+
+#video_description{
+    color: gray;
+    font-size: large;
+}
+
+a {
+    text-decoration: none;
+}
+
+#briefly {
+    visibility: hidden;
+}
+
+.content_image{
+    width: 40%;
+    padding: 1%;
+}
+.content_text section{
+    padding: 1%;
+}
+
+@media screen and (min-width:961px) {
+    section {
+        float:left;
+        width: 66%;
+    }
+    aside {
+        float: right;
+        width: 30%;
+    }
+    #notice{
+        width: 63%;
+    }
+}
+@media screen and (max-width:960px) {
+    section {
+        width: 100%;
+    }
+
+    aside{
+        display: none;
+    }
+    #notice{
+        width: 95%;
+    }
+}
+
+.playList , .currentPlayList, .playList a, .currentPlayList a{
+    display:flex;
+    padding: 1%;
+}
+.currentPlayList a{
+    background-color: #dcdcdc;
+}
+
+#video_coment {
+    padding-left:6%;
+    padding-top:1%;
+}
+
+#playLists{
+    padding: 1%;
+    height: 70vh;
+    overflow:scroll;
+}
+
+#playListsButton{
+    display:flex;
+    text-align: center;
+}
+
+#addButton, #deleteButton, #randomButton{
+    background-color: gray;
+    width:15%;
+    margin: 5%;
+    cursor: pointer;
+}
+
+.checkbox{
+    margin-top: 10%;
+}
+
+#randomButton{
+    opacity: 0.4;
+}
+
+#notice{
+    position: fixed;
+    left: 2%;
+    top: 4%;
+    display:flex;
+    height: 64%;
+    text-align: center;
+}
+
+#notice > *{
+    width: 100%;
+    background-color: white;
+    overflow: scroll;
+    padding: 2%;
+    border: thick dotted  black;
+
+    text-align: center;
+}
+
+.noticeImage {
+    width: 30%;
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+
+.closeButton{
+    width:3%;
+    margin:1%;
+    display: block;
+    cursor: pointer;
+}
+
+.doNotSeeToday{
+    margin-top: 5%;
+}
+
+.popupContent {
+    margin-left: 5%;
+    margin-right: 5%;
+}

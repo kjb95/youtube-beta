@@ -1,0 +1,30 @@
+#contents {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.content {
+    padding: 10px;
+}
+
+.content_description, .content_user_name{
+    color: gray;
+    font-size: small;
+}
+
+.content_image{
+    width: 400px;
+}
+
+body{
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content_title{
+    color: white;
+    font-size: large;
+}

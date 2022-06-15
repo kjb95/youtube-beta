@@ -1,0 +1,15 @@
+.videoForm {
+    margin: 2%;
+    color:gray;
+}
+
+body{
+    background-color: black;
+}
+
+textarea{
+    height: 30vh;
+    border: none;
+    resize: none;
+    margin: 1%;
+}
