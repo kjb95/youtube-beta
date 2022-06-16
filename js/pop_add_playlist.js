@@ -1,6 +1,6 @@
 'use strict';
 
-window.resizeTo(400,450);
+window.resizeTo(350,400);
 
 function addVideo() {
     let data = window.localStorage.getItem("playLists");

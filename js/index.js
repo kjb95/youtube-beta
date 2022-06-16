@@ -31,7 +31,7 @@ function loadIndex() {
 
         let video_information = document.createElement("div");
         video_information.className = "video_information";
-        video_information.innerText = item.description;
+        video_information.innerText = item.information;
         content.appendChild(video_information);
       });
     });

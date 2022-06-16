@@ -5,6 +5,19 @@
     color: white;
 }
 
+body{
+    background-color: black;
+}
+#notice > *{
+    background-color: white;
+}
+#addButton, #deleteButton, #randomButton{
+    background-color: gray;
+}
+.current_playlist a{ 
+    background-color: #dcdcdc;
+}
+
 .video_information, .youtuber, #subscriber, #viewMore, #briefly{
     font-size: small;
 }
@@ -21,13 +34,53 @@
 #addButton, #deleteButton, #randomButton{
     margin:5%;
 }
-
-body{
-    background-color: black;
+#popupButton, #youtubePlayer, margin-top, .do_not_see_today{
+    margin-top: 5%;
+}
+.playlist .checkbox, .current_playlist .checkbox{
+    margin-top: 10%;
+}
+.notice_image {
+    margin-bottom: 1%;
 }
 
-a {
+#playLists, #notice > *, .video_image, .playlist , .current_playlist, .playlist a, .current_playlist a{
+    padding: 1%;
+}
+#youtuberInformation {
+    padding-left:5%;
+}
+#youtuberInformation {
+    padding-top:1%;
+}
+
+#notice, #notice > *, #playListsButton{
+    text-align: center;
+}
+
+.playlist .checkbox, .current_playlist .checkbox {
+    align-items:center; 
+}
+
+a{
     text-decoration: none;
+}
+
+#addButton, #deleteButton, #randomButton, .close_button{
+    cursor: pointer;
+}
+
+.close_button{
+    display: block;
+}
+#notice, #playListsButton, .playlist , .current_playlist, .playlist a, .current_playlist a, #videos{
+    display:flex;
+}
+#playListsButton{
+    display: inline-block;
+}
+#notice > *, #playLists{
+    overflow: scroll;
 }
 
 .video_title, #videoDescription, #youtuber{    

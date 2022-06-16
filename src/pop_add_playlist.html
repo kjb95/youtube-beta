@@ -5,22 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/common.css">
-
     <title>Youtube</title>
 </head>
 <body>
-    <div class="video_form">동영상 아이디 : <input type="text" id="videoFormVideoId"></div>
-    <div class="video_form">동영상 썸네일 이미지 : <input type="text" id="videoFormvideoImage"></div>
-    <div class="video_form">동영상 제목 : <input type="text" id="videoFormVideoTitle"></div>
-    <div class="video_form">유튜버 : <input type="text" id="videoFormYoutuber"></div>
-    <div class="video_form">동영상 정보  : <input type="text" id="videoFormVideoInformation"></div>
-    <div class="video_form">구독자 수 : <input type="text" id="videoFormSubscriber"></div>
-    <div class="video_form">동영상 설명<br>
-        <textarea id="videoDescription"></textarea>
-    </div>
-    <input type="submit" onclick="addVideo()">
-    <input type="button" onclick="exit()" value="닫기">
-
+    <main>
+        <section>
+            <div class="video_form">동영상 아이디 : <input type="text" id="videoFormVideoId"></div>
+            <div class="video_form">동영상 썸네일 이미지 : <input type="text" id="videoFormvideoImage"></div>
+            <div class="video_form">동영상 제목 : <input type="text" id="videoFormVideoTitle"></div>
+            <div class="video_form">유튜버 : <input type="text" id="videoFormYoutuber"></div>
+            <div class="video_form">동영상 정보  : <input type="text" id="videoFormVideoInformation"></div>
+            <div class="video_form">구독자 수 : <input type="text" id="videoFormSubscriber"></div>
+            <div class="video_form">동영상 설명<br>
+                <textarea id="videoDescription"></textarea>
+            </div>
+        </section>
+        <section id="popupButton">
+            <input type="submit" onclick="addVideo()">
+            <input type="button" onclick="exit()" value="닫기">
+        </section>
+    </main>
     <footer>
         <script type="text/javascript" src="../js/pop_add_playlist.js"></script>
     </footer>
