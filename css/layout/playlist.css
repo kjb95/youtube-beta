@@ -1,0 +1,37 @@
+#playLists{
+    padding: 1%;
+    height: 70vh;
+    overflow:scroll;
+}
+
+#playListsButton{
+    display:flex;
+    text-align: center;
+}
+
+#addButton, #deleteButton, #randomButton{
+    background-color: gray;
+    width:15%;
+    cursor: pointer;
+}
+
+#randomButton{
+    opacity: 0.4;
+}
+
+.video_image{
+    width: 40%;
+    padding: 1%;
+}
+
+.playlist , .current_playlist, .playlist a, .current_playlist a{
+    display:flex;
+    padding: 1%;
+}
+.current_playlist a{
+    background-color: #dcdcdc;
+}
+
+.checkbox{
+    margin-top: 10%;
+}

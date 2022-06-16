@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/video.css">
-    <title>Video Main Page</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout/playlist.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout/notice.css">
+    <title>Youtube</title>
 </head>
+
 <body>
-    <header>
-
-    </header>
-
-    <nav>
-
-    </nav>
-
     <aside>
         <div id="playLists"></div>
         <div id="playListsButton">
             <center>
                 <input type="hidden" id="isRandom" value="false">
                 <img id="randomButton" src="../images/randomButton.png">
-                <img id ="addButton" src="../images/addButton.png">
-                <img id = "deleteButton" src="../images/deleteButton.png">
+                <img id="addButton" src="../images/addButton.png">
+                <img id="deleteButton" src="../images/deleteButton.png">
             </center>
         </div>
     </aside>
 
     <section id="video">
-        <div id="notice"></div>
-        <div id="player">
-            <div id="video_title"></div><br>
-            <div id="video_description"></div><br>
-            <div id="vido_coment"></div><br>
-            <div id="video_user_name"></div>
-            <div id="subscriber"></div>
-            <div id="explanations"></div>
-            <div id="explanations"></div>
-
+        <article id="notice"></article>
+        <div id="youtubePlayer"></div>
+        <div id="videoTitle"></div><br>
+        <div id="videoInformation"></div><br>
+        <div id="youtuberInformation"><br>
+            <div id="youtuber"></div><br>
+            <div id="subscriber"></div><br>
+            <div id="videoDescription"></div><br>
+            <div id="viewMore"></div><br>
+            <div id="briefly"></div><br>
         </div>
-        <br>
-        <br>
-
     </section>
 
     <script>
@@ -53,30 +47,31 @@
         let id = new URL(window.location.href).searchParams.get("page");
 
         function onYouTubeIframeAPIReady(fileName) {
-            var player = new YT.Player('player', {
+            var youtubePlayer = new YT.Player('youtubePlayer', {
                 videoId: id,
-                playerVars:{
-                    'autoplay':1
+                playerVars: {
+                    'autoplay': 1
                 },
                 events: {
                     'onStateChange': onPlayerStateChange  // 플레이어의 상태가 변경될 때마다 실행
                 }
             });
         }
-        
+
         var nextId;
         function onPlayerStateChange(event) {
-            if(event.data === 0) {
+            if (event.data === 0) {
                 let currentPlayList = document.getElementsByClassName("currentPlayList")[0];
                 if (currentPlayList.nextElementSibling != null)
                     location.href = currentPlayList.nextElementSibling.lastChild.href;
             }
         }
-        
+
     </script>
-    
+
     <footer>
         <script type="text/javascript" src="../js/video.js"></script>
     </footer>
 </body>
+
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-window.resizeTo(300,450);
+window.resizeTo(400,450);
 
 function addVideo() {
     let data = window.localStorage.getItem("playLists");
@@ -9,14 +9,14 @@ function addVideo() {
     let parsedSequentialData = JSON.parse(sequentialData);
 
     let playList = {
-        id : document.getElementById("video_id").value,
-        image : document.getElementById("content_image").value,
-        title : document.getElementById("video_title").value,
-        user_name : document.getElementById("video_user_name").value,
-        description : document.getElementById("content_description").value,
-        subscriber : document.getElementById("subscriber").value,
+        id : document.getElementById("videoFormVideoId").value,
+        image : document.getElementById("videoFormVideoImage").value,
+        title : document.getElementById("videoFormVideoTitle").value,
+        user_name : document.getElementById("videoFormYoutuber").value,
+        description : document.getElementById("videoFormVideoInformation").value,
+        subscriber : document.getElementById("videoFormSubscriber").value,
         isExist : true,
-        explanation : document.getElementById("video_description").value
+        explanation : document.getElementById("videoFormVideoDescription").value
     }
     parsedData.playList.push(playList);
     parsedSequentialData.playList.push(playList);

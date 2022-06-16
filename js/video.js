@@ -1,5 +1,4 @@
-'use strict';
-
+"use strict";
 
 async function loadPlayList() {
   // window.localStorage.clear();
@@ -14,8 +13,7 @@ async function loadPlayList() {
   if (isRandom != "true") {
     window.localStorage.setItem("isRandom", false);
     loadData(JSON.parse(sequentialPlayLists));
-  }
-  else {
+  } else {
     document.getElementById("randomButton").style.opacity = 1;
     loadData(JSON.parse(playLists));
   }
@@ -23,14 +21,14 @@ async function loadPlayList() {
 
 async function fetchData() {
   let ret;
-  await fetch("../data/playList.json")
-    .then(response => response.json())
-    .then(data => JSON.stringify(data))
-    .then(data => {
+  await fetch("../data/playlist.json")
+    .then((response) => response.json())
+    .then((data) => JSON.stringify(data))
+    .then((data) => {
       window.localStorage.setItem("playLists", data);
       ret = data;
     });
-  
+
   return ret;
 }
 
@@ -38,154 +36,120 @@ function loadData(data) {
   let playLists = document.getElementById("playLists");
   let url = new URL(window.location.href);
 
-  data.playList.forEach(item => {
-    if (!item.isExist)
-      return ;
+  data.playList.forEach((item) => {
+    if (!item.isExist) return;
 
-    let playList = document.createElement('div');
+    let playList = document.createElement("div");
     if (item.id == url.searchParams.get("page"))
-      playList.className = "currentPlayList";
-    else
-      playList.className = "playList";
+      playList.className = "current_playlist";
+    else playList.className = "playlist";
     playLists.appendChild(playList);
 
-    let checkbox = document.createElement('input');
-    checkbox.className="checkbox";
+    let checkbox = document.createElement("input");
+    checkbox.className = "checkbox";
     checkbox.type = "checkbox";
     checkbox.id = item.id;
     playList.appendChild(checkbox);
 
-    let link = document.createElement('a');
+    let link = document.createElement("a");
     playList.appendChild(link);
-    link.href= "../src/video.html" + "?page=" + item.id;
+    link.href = "../src/video.html" + "?page=" + item.id;
 
-    let img = document.createElement('img');
-    img.className="content_image";
-    img.src=item.image;
+    let img = document.createElement("img");
+    img.className = "video_image";
+    img.src = item.image;
     link.appendChild(img);
 
-    let content_text = document.createElement('div');
-    content_text.className = "content_text";
-    link.appendChild(content_text);
+    let video_text = document.createElement("div");
+    video_text.className = "video_text";
+    link.appendChild(video_text);
 
-    let title = document.createElement('div');
-    title.className = "content_title";
+    let title = document.createElement("div");
+    title.className = "video_title";
     title.innerText = item.title;
-    content_text.appendChild(title);
+    video_text.appendChild(title);
 
-    let content_user_name = document.createElement('div');
-    content_user_name.className="content_user_name";
-    content_user_name.innerText = item.user_name;
-    content_text.appendChild(content_user_name);
+    let youtuber = document.createElement("div");
+    youtuber.className = "youtuber";
+    youtuber.innerText = item.user_name;
+    video_text.appendChild(youtuber);
 
-    let content_description = document.createElement('div');
-    content_description.className="content_description";
-    content_description.innerText = item.description;
-    content_text.appendChild(content_description);
+    let video_information = document.createElement("div");
+    video_information.className = "video_information";
+    video_information.innerText = item.description;
+    video_text.appendChild(video_information);
   });
 }
 
 loadPlayList();
 
-
+let explanation;
 
 function loadVideo() {
   let data = JSON.parse(window.localStorage.getItem("playLists"));
   let url = new URL(window.location.href);
-  data.playList.forEach(item => {
-    if (item.id != url.searchParams.get("page"))
-        return ;
+  data.playList.forEach((item) => {
+    if (item.id != url.searchParams.get("page")) return;
 
-    let video = document.getElementById("video");
-    let title = document.createElement('div');
-    title.id = "video_title";
+    let title = document.getElementById("videoTitle");
     title.innerText = item.title;
-    video.appendChild(title);
-    video.appendChild(document.createElement("br"));
 
-    let content_description = document.createElement('div');
-    content_description.id="video_description";
-    content_description.innerText = item.description;
-    video.appendChild(content_description);
-    video.appendChild(document.createElement("br"));
+    let videoInformation = document.getElementById("videoInformation");
+    videoInformation.innerText = item.description;
 
-    let video_coment = document.createElement('div');
-    video_coment.id = "video_coment";
-    video.appendChild(video_coment);
+    let youtuber = document.getElementById("youtuber");
+    youtuber.innerText = item.user_name;
 
-    let content_user_name = document.createElement('div');
-    content_user_name.id="video_user_name";
-    content_user_name.innerText = item.user_name;
-    video_coment.appendChild(content_user_name);
-
-    let subscriber = document.createElement('div');
-    subscriber.id = "subscriber";
+    let subscriber = document.getElementById("subscriber");
     subscriber.innerText = item.subscriber;
-    video_coment.appendChild(subscriber);
-    video_coment.appendChild(document.createElement("br"));
 
-    let explanations = document.createElement('div');
-    explanations.id="explanations";
-    video_coment.appendChild(explanations);
-
-    let explanation = document.createElement('div');
-    explanation.id = "explanation";
+    explanation = document.getElementById("videoDescription");
     explanation.innerText = item.explanation;
-    explanations.appendChild(explanation);
 
-    let view_more = document.createElement('div');
-    view_more.id = "view_more";
+    let view_more = document.getElementById("viewMore");
     view_more.innerText = "더보기";
     view_more.addEventListener("click", view_more_func);
-    explanations.appendChild(view_more);
 
-    let briefly = document.createElement('div');
-    briefly.id = "briefly";
+    let briefly = document.getElementById("briefly");
     briefly.innerText = "간략히";
     briefly.addEventListener("click", briefly_func);
-    explanations.appendChild(briefly);
   });
 }
 
 function view_more_func() {
-  explanation.style.overflow="visible";
-  explanation.style.display="inline";
-  view_more.style.visibility="hidden";
-  briefly.style.visibility="visible";
+  explanation.style.overflow = "visible";
+  explanation.style.display = "inline";
+  view_more.style.visibility = "hidden";
+  briefly.style.visibility = "visible";
 }
 
 function briefly_func() {
   explanation.style.overflow = "hidden";
   explanation.style.display = "-webkit-box";
-  view_more.style.visibility="visible";
+  view_more.style.visibility = "visible";
   briefly.style.visibility = "hidden";
 }
 
 loadVideo();
 
-
-
-window.addEventListener('click', () => {
-  let playList =  document.getElementById("playLists");
+window.addEventListener("click", () => {
+  let playList = document.getElementById("playLists");
   window.localStorage.setItem("playListLocation", playList.scrollTop);
-})
+});
 
-window.onload = function() {
-  let playList =  document.getElementById("playLists");
+window.onload = function () {
+  let playList = document.getElementById("playLists");
   let url = new URL(document.referrer);
   let urls = url.pathname.split("/");
 
-  playList.scrollTop =  window.localStorage.getItem("playListLocation");
+  playList.scrollTop = window.localStorage.getItem("playListLocation");
 
-  if (urls[urls.length-1] != "video.html")
-    playList.scrollTop = 0;
-}
-
-
+  if (urls[urls.length - 1] != "video.html") playList.scrollTop = 0;
+};
 
 function playListDeletButton() {
   let deleteButton = document.getElementById("deleteButton");
-  deleteButton.addEventListener('click', deletePlayList);
+  deleteButton.addEventListener("click", deletePlayList);
 }
 
 function deletePlayList(event) {
@@ -196,27 +160,26 @@ function deletePlayList(event) {
   let parsedSequentialData = JSON.parse(sequentialData);
   let isReload = false;
 
-  checkboxs.forEach(checkbox => {
-    parsedData.playList.forEach(pd => {
+  checkboxs.forEach((checkbox) => {
+    parsedData.playList.forEach((pd) => {
       if (pd.id == checkbox.id) {
         pd.isExist = false;
         isReload = true;
       }
-    })
-    parsedSequentialData.playList.forEach(psd => {
-      if(psd.id == checkbox.id) {
+    });
+    parsedSequentialData.playList.forEach((psd) => {
+      if (psd.id == checkbox.id) {
         psd.isExist = false;
         isReload = true;
       }
-    })
-  })
+    });
+  });
 
   window.localStorage.setItem("playLists", JSON.stringify(parsedData));
-  window.localStorage.setItem("sequentialPlayLists", JSON.stringify(parsedSequentialData));
-
-
-
-
+  window.localStorage.setItem(
+    "sequentialPlayLists",
+    JSON.stringify(parsedSequentialData)
+  );
 
   // for(let i=0 ;i<parsedData.playList.length; i++) {
   //   checkboxs.forEach(checkbox => {
@@ -224,9 +187,6 @@ function deletePlayList(event) {
   //     console.log(checkbox.nextElementSibling.id);
 
   //     let id = checkbox.id;
-
-
-
 
   //     console.log("id : ", id);
   //     if (parsedData.playList[i].id == checkbox.id) {
@@ -241,30 +201,25 @@ function deletePlayList(event) {
   // }
   // window.localStorage.setItem("playLists", JSON.stringify(parsedData));
 
-  if (isReload)
-    location.reload();
+  if (isReload) location.reload();
 }
 
 playListDeletButton();
 
-
-
 function playListAddButton() {
   let addButton = document.getElementById("addButton");
-  addButton.addEventListener('click', addPlayList);
+  addButton.addEventListener("click", addPlayList);
 }
 
 function addPlayList(event) {
-  window.open("../src/addVideoForm.html", " _blank", "resizable=yes");
+  window.open("../src/add_video_form.html", " _blank", "resizable=yes");
 }
 
 playListAddButton();
 
-
-
 function playListRandomButton() {
   let randomButton = document.getElementById("randomButton");
-  randomButton.addEventListener('click', randomPlayList);
+  randomButton.addEventListener("click", randomPlayList);
 }
 
 function randomPlayList(event) {
@@ -277,8 +232,7 @@ function randomPlayList(event) {
     event.target.style.opacity = 0.4;
     window.localStorage.setItem("isRandom", false);
     loadData(parsedData);
-  }
-  else {
+  } else {
     event.target.style.opacity = 1;
     window.localStorage.setItem("isRandom", true);
     combineData(parsedData);
@@ -296,7 +250,7 @@ function loadRandomPlayList() {
 }
 
 function combineData(data) {
-  for(let i=0; i<data.playList.length; i++) {
+  for (let i = 0; i < data.playList.length; i++) {
     let temp = data.playList[i];
     let randomNumber = Math.floor(Math.random() * data.playList.length);
     data.playList[i] = data.playList[randomNumber];
@@ -306,13 +260,10 @@ function combineData(data) {
 
 function removePlayList() {
   let playLists = document.getElementById("playLists");
-  while (playLists.hasChildNodes())
-    playLists.removeChild(playLists.firstChild);
+  while (playLists.hasChildNodes()) playLists.removeChild(playLists.firstChild);
 }
 
 playListRandomButton();
-
-
 
 // function fetchNotice (){
 //   fetch("../data/notice.json")
@@ -330,18 +281,18 @@ playListRandomButton();
 //         notice.id = noticeName;
 //         notices.appendChild(notice);
 
-//         let closeButton = document.createElement('img');
-//         closeButton.className="closeButton";
-//         closeButton.src="../images/deleteButton.png";
-//         notice.appendChild(closeButton);
-//         closeButton.addEventListener('click', closePopup);
+//         let close_button = document.createElement('img');
+//         close_button.className="close_button";
+//         close_button.src="../images/deleteButton.png";
+//         notice.appendChild(close_button);
+//         close_button.addEventListener('click', closePopup);
 
 //         let popupContent = document.createElement('div');
 //         notice.appendChild(popupContent);
 
 //         let img = document.createElement('img');
 //         img.src = item.img;
-//         img.className ="noticeImage";
+//         img.className ="notice_image";
 //         popupContent.appendChild(img);
 
 //         let title = document.createElement('h3');
@@ -354,9 +305,9 @@ playListRandomButton();
 
 //         let checkbox = document.createElement('input');
 //         checkbox.type = "checkbox";
-//         checkbox.className = "doNotSeeToday";
+//         checkbox.className = "do_not_see_today";
 //         notice.appendChild(checkbox);
-        
+
 //         let text = document.createElement('span');
 //         text.innerText = "오늘 하루 보지 않기";
 //         notice.appendChild(text);
@@ -364,87 +315,89 @@ playListRandomButton();
 //     })
 // }
 
-function fetchNotice (){
+function fetchNotice() {
   fetch("../data/notice.xml")
-    .then(response => response.text())
-    .then(data => {
+    .then((response) => response.text())
+    .then((data) => {
       let domParser = new DOMParser();
-      let notice = domParser.parseFromString(data, "text/xml").getElementsByTagName("notice");
+      let notice = domParser
+        .parseFromString(data, "text/xml")
+        .getElementsByTagName("notice");
       let notices = document.getElementById("notice");
       let index = -1;
 
       for (let item of notice) {
-        let noticeName = "notice"+(++index);
-        if (getCookie(noticeName) != "")
-          continue ;
+        let noticeName = "notice" + ++index;
+        if (getCookie(noticeName) != "") continue;
 
-        let notice = document.createElement('div');
+        let notice = document.createElement("div");
         notice.id = noticeName;
         notices.appendChild(notice);
 
-        let closeButton = document.createElement('img');
-        closeButton.className="closeButton";
-        closeButton.src="../images/deleteButton.png";
-        notice.appendChild(closeButton);
-        closeButton.addEventListener('click', closePopup);
+        let close_button = document.createElement("img");
+        close_button.className = "close_button";
+        close_button.src = "../images/deleteButton.png";
+        notice.appendChild(close_button);
+        close_button.addEventListener("click", closePopup);
 
-        let popupContent = document.createElement('div');
+        let popupContent = document.createElement("div");
         notice.appendChild(popupContent);
 
-        let img = document.createElement('img');
+        let img = document.createElement("img");
         img.src = item.children[2].innerHTML;
 
-        img.className ="noticeImage";
+        img.className = "notice_image";
         popupContent.appendChild(img);
 
-        let title = document.createElement('h3');
+        let title = document.createElement("h3");
         title.innerText = item.children[0].innerHTML;
         popupContent.appendChild(title);
 
-        let content = document.createElement('div');
+        let content = document.createElement("div");
         content.innerText = item.children[1].innerHTML;
         popupContent.appendChild(content);
 
-        let checkbox = document.createElement('input');
+        let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.className = "doNotSeeToday";
+        checkbox.className = "do_not_see_today";
         notice.appendChild(checkbox);
-        
-        let text = document.createElement('span');
+
+        let text = document.createElement("span");
         text.innerText = "오늘 하루 보지 않기";
         notice.appendChild(text);
       }
     })
-    .then(ret => {
+    .then((ret) => {
       let notice = document.getElementById("notice");
-      if(notice.hasChildNodes() == false)
-        notice.remove();
-    })
+      if (notice.hasChildNodes() == false) notice.remove();
+    });
 }
 
 function closePopup(event) {
-  event.target.parentNode.style.display="none";
-  if (document.querySelector(`#${event.target.parentNode.id} .doNotSeeToday`).checked == true)
-    setCookie(`${event.target.parentNode.id}`, "true", 86400000)  // 하루동안 열지 않기
+  event.target.parentNode.style.display = "none";
+  if (
+    document.querySelector(`#${event.target.parentNode.id} .do_not_see_today`)
+      .checked == true
+  )
+    setCookie(`${event.target.parentNode.id}`, "true", 86400000); // 하루동안 열지 않기
 }
 
 function setCookie(name, value, expire) {
   let currentDay = new Date();
   currentDay.setTime(currentDay.getTime() + expire);
-  document.cookie = name + '=' + value + "; expires="+(currentDay.toUTCString());
+  document.cookie =
+    name + "=" + value + "; expires=" + currentDay.toUTCString();
 }
 
 function getCookie(name) {
-  if (document.cookie == "")
-    return "";
+  if (document.cookie == "") return "";
 
   let cookies = document.cookie.split(";");
 
-  for(let i in cookies) {
+  for (let i in cookies) {
     let key = cookies[i].split("=")[0].trim();
     let value = cookies[i].split("=")[1].trim();
-    if (key == name)
-      return value;
+    if (key == name) return value;
   }
   return "";
 }
