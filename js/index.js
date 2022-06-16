@@ -12,7 +12,7 @@ function loadIndex() {
 
         let link = document.createElement("a");
         content.appendChild(link);
-        link.href = "../src/video.html" + "?page=" + item.id;
+        link.href = "../src/video_play.html" + "?page=" + item.id;
 
         let img = document.createElement("img");
         img.className = "video_image";

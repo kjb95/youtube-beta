@@ -120,15 +120,15 @@ function loadVideo() {
 function view_more_func() {
   videoDescription.style.overflow = "visible";
   videoDescription.style.display = "inline";
-  view_more.style.visibility = "hidden";
-  briefly.style.visibility = "visible";
+  view_more.style.display = "none";
+  briefly.style.display = "block";
 }
 
 function briefly_func() {
   videoDescription.style.overflow = "hidden";
   videoDescription.style.display = "-webkit-box";
-  view_more.style.visibility = "visible";
-  briefly.style.visibility = "hidden";
+  view_more.style.display = "block";
+  briefly.style.display = "none";
 }
 
 loadVideo();
@@ -375,12 +375,14 @@ function fetchNotice() {
 }
 
 function closePopup(event) {
-  event.target.parentNode.style.display = "none";
   if (
     document.querySelector(`#${event.target.parentNode.id} .do_not_see_today`)
       .checked == true
   )
     setCookie(`${event.target.parentNode.id}`, "true", 86400000); // 하루동안 열지 않기
+  event.target.parentNode.remove();
+  let notice = document.getElementById("notice");
+      if (notice.hasChildNodes() == false) notice.remove();
 }
 
 function setCookie(name, value, expire) {
