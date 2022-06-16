@@ -53,7 +53,7 @@ function loadData(data) {
 
     let link = document.createElement("a");
     playList.appendChild(link);
-    link.href = "../src/video.html" + "?page=" + item.id;
+    link.href = "../src/video_play.html" + "?page=" + item.id;
 
     let img = document.createElement("img");
     img.className = "video_image";
@@ -71,19 +71,19 @@ function loadData(data) {
 
     let youtuber = document.createElement("div");
     youtuber.className = "youtuber";
-    youtuber.innerText = item.user_name;
+    youtuber.innerText = item.youtuber;
     video_text.appendChild(youtuber);
 
     let video_information = document.createElement("div");
     video_information.className = "video_information";
-    video_information.innerText = item.description;
+    video_information.innerText = item.information;
     video_text.appendChild(video_information);
   });
 }
 
 loadPlayList();
 
-let explanation;
+let videoDescription;
 
 function loadVideo() {
   let data = JSON.parse(window.localStorage.getItem("playLists"));
@@ -95,16 +95,16 @@ function loadVideo() {
     title.innerText = item.title;
 
     let videoInformation = document.getElementById("videoInformation");
-    videoInformation.innerText = item.description;
+    videoInformation.innerText = item.information;
 
     let youtuber = document.getElementById("youtuber");
-    youtuber.innerText = item.user_name;
+    youtuber.innerText = item.youtuber;
 
     let subscriber = document.getElementById("subscriber");
     subscriber.innerText = item.subscriber;
 
-    explanation = document.getElementById("videoDescription");
-    explanation.innerText = item.explanation;
+    videoDescription = document.getElementById("videoDescription");
+    videoDescription.innerText = item.description;
 
     let view_more = document.getElementById("viewMore");
     view_more.innerText = "더보기";
@@ -117,15 +117,15 @@ function loadVideo() {
 }
 
 function view_more_func() {
-  explanation.style.overflow = "visible";
-  explanation.style.display = "inline";
+  videoDescription.style.overflow = "visible";
+  videoDescription.style.display = "inline";
   view_more.style.visibility = "hidden";
   briefly.style.visibility = "visible";
 }
 
 function briefly_func() {
-  explanation.style.overflow = "hidden";
-  explanation.style.display = "-webkit-box";
+  videoDescription.style.overflow = "hidden";
+  videoDescription.style.display = "-webkit-box";
   view_more.style.visibility = "visible";
   briefly.style.visibility = "hidden";
 }
@@ -144,7 +144,7 @@ window.onload = function () {
 
   playList.scrollTop = window.localStorage.getItem("playListLocation");
 
-  if (urls[urls.length - 1] != "video.html") playList.scrollTop = 0;
+  if (urls[urls.length - 1] != "video_play.html") playList.scrollTop = 0;
 };
 
 function playListDeletButton() {
