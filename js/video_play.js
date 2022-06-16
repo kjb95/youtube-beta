@@ -84,6 +84,7 @@ function loadData(data) {
 loadPlayList();
 
 let videoDescription;
+let view_more;
 
 function loadVideo() {
   let data = JSON.parse(window.localStorage.getItem("playLists"));
@@ -106,7 +107,7 @@ function loadVideo() {
     videoDescription = document.getElementById("videoDescription");
     videoDescription.innerText = item.description;
 
-    let view_more = document.getElementById("viewMore");
+    view_more = document.getElementById("viewMore");
     view_more.innerText = "더보기";
     view_more.addEventListener("click", view_more_func);
 
@@ -212,7 +213,7 @@ function playListAddButton() {
 }
 
 function addPlayList(event) {
-  window.open("../src/add_video_form.html", " _blank", "resizable=yes");
+  window.open("../src/pop_add_playlist.html", " _blank", "resizable=yes");
 }
 
 playListAddButton();
@@ -283,7 +284,7 @@ playListRandomButton();
 
 //         let close_button = document.createElement('img');
 //         close_button.className="close_button";
-//         close_button.src="../images/deleteButton.png";
+//         close_button.src="../img/deleteButton.png";
 //         notice.appendChild(close_button);
 //         close_button.addEventListener('click', closePopup);
 
@@ -336,7 +337,7 @@ function fetchNotice() {
 
         let close_button = document.createElement("img");
         close_button.className = "close_button";
-        close_button.src = "../images/deleteButton.png";
+        close_button.src = "../img/deleteButton.png";
         notice.appendChild(close_button);
         close_button.addEventListener("click", closePopup);
 
