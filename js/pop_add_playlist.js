@@ -1,33 +1,33 @@
-'use strict';
+"use strict";
 
-window.resizeTo(350,400);
+window.resizeTo(350, 400);
 
-function addVideo() {
-    let data = window.localStorage.getItem("playLists");
-    let sequentialData = window.localStorage.getItem("sequentialPlayLists");
-    let parsedData = JSON.parse(data);
-    let parsedSequentialData = JSON.parse(sequentialData);
+function addPlaylist() {
+  let randomPlaylist = window.localStorage.getItem("randomPlaylist");
+  let sequentialPlaylist = window.localStorage.getItem("sequentialPlaylist");
+  let parsedRandomPlaylist = JSON.parse(randomPlaylist);
+  let parsedSequentialPlaylist = JSON.parse(sequentialPlaylist);
 
-    let playList = {
-        id : document.getElementById("videoFormVideoId").value,
-        image : document.getElementById("videoFormVideoImage").value,
-        title : document.getElementById("videoFormVideoTitle").value,
-        user_name : document.getElementById("videoFormYoutuber").value,
-        description : document.getElementById("videoFormVideoInformation").value,
-        subscriber : document.getElementById("videoFormSubscriber").value,
-        isExist : true,
-        explanation : document.getElementById("videoFormVideoDescription").value
-    }
-    parsedData.playList.push(playList);
-    parsedSequentialData.playList.push(playList);
+  let playlist = {
+    id: document.getElementById("videoFormVideoId").value,
+    img: document.getElementById("videoFormVideoImg").value,
+    title: document.getElementById("videoFormVideoTitle").value,
+    user_name: document.getElementById("videoFormYoutuber").value,
+    description: document.getElementById("videoFormVideoInformation").value,
+    subscriber: document.getElementById("videoFormSubscriber").value,
+    isExist: true,
+    explanation: document.getElementById("videoFormVideoDescription").value,
+  };
+  parsedRandomPlaylist.playlists.push(playlist);
+  parsedSequentialPlaylist.playlists.push(playlist);
 
-    window.localStorage.setItem("playLists", JSON.stringify(parsedData));
-    window.localStorage.setItem("sequentialPlayLists", JSON.stringify(parsedSequentialData));
+  window.localStorage.setItem("randomPlaylist", JSON.stringify(parsedRandomPlaylist));
+  window.localStorage.setItem("sequentialPlaylist",JSON.stringify(parsedSequentialPlaylist));
 
-    opener.location.reload();
-    window.close();
+  opener.location.reload();
+  window.close();
 }
 
 function exit() {
-    window.close();
+  window.close();
 }

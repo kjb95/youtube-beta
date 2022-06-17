@@ -1,105 +1,154 @@
-.video_information, .youtuber, #videoInformation, #subscriber, #viewMore, #briefly, .video_form{
-    color: gray;
+.video_information,
+.youtuber,
+#videoInformation,
+#subscriber,
+#viewMore,
+#briefly,
+.video_form {
+  color: gray;
 }
-.video_title, #youtuber, #videoTitle, #videoDescription{
-    color: white;
-}
-
-body{
-    background-color: black;
-}
-#notice > *{
-    background-color: white;
-}
-#addButton, #deleteButton, #randomButton{
-    background-color: gray;
-}
-.current_playlist a{ 
-    background-color: #dcdcdc;
+.video_title,
+#youtuber,
+#videoTitle,
+#videoDescription {
+  color: white;
 }
 
-.video_information, .youtuber, #subscriber, #viewMore, #briefly{
-    font-size: small;
+body {
+  background-color: black;
 }
-.video_title, #videoInformation, #youtuber{
-    font-size: large
+#notice > * {
+  background-color: white;
 }
-#videoTitle{
-    font-size: x-large;
+#addButton,
+#deleteButton,
+#randomButton {
+  background-color: gray;
 }
-
-.close_button, textarea, .video_form{
-    margin:1%;
-}
-#addButton, #deleteButton, #randomButton{
-    margin:5%;
-}
-#popupButton, #youtubePlayer, margin-top, .do_not_see_today{
-    margin-top: 5%;
-}
-.playlist .checkbox, .current_playlist .checkbox{
-    margin-top: 10%;
-}
-.notice_image {
-    margin-bottom: 1%;
+.current_playlist a {
+  background-color: #dcdcdc;
 }
 
-#playLists, #notice > *, .video_image, .playlist , .current_playlist, .playlist a, .current_playlist a{
-    padding: 1%;
+.video_information,
+.youtuber,
+#subscriber,
+#viewMore,
+#briefly {
+  font-size: small;
+}
+.video_title,
+#videoInformation,
+#youtuber {
+  font-size: large;
+}
+#videoTitle {
+  font-size: x-large;
+}
+
+.close_button,
+textarea,
+.video_form {
+  margin: 1%;
+}
+#addButton,
+#deleteButton,
+#randomButton {
+  margin: 5%;
+}
+#popupButton,
+#youtubePlayer,
+margin-top,
+.do_not_see_today {
+  margin-top: 5%;
+}
+.playlist .checkbox,
+.current_playlist .checkbox {
+  margin-top: 10%;
+}
+.notice_img {
+  margin-bottom: 1%;
+}
+
+#playlists,
+#notice > *,
+.video_img,
+.playlist,
+.current_playlist,
+.playlist a,
+.current_playlist a {
+  padding: 1%;
 }
 #youtuberInformation {
-    padding-left:5%;
+  padding-left: 5%;
 }
 #youtuberInformation {
-    padding-top:1%;
+  padding-top: 1%;
 }
 
-#notice, #notice > *, #playListsButton{
-    text-align: center;
+#notice,
+#notice > *,
+#playlistsButton {
+  text-align: center;
 }
 
-.playlist .checkbox, .current_playlist .checkbox {
-    align-items:center; 
+.playlist .checkbox,
+.current_playlist .checkbox {
+  align-items: center;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-#addButton, #deleteButton, #randomButton, #viewMore, #briefly, .close_button, .checkbox{
-    cursor: pointer;
+#addButton,
+#deleteButton,
+#randomButton,
+#viewMore,
+#briefly,
+.close_button,
+.checkbox {
+  cursor: pointer;
 }
 
-.close_button{
-    display: block;
+.close_button {
+  display: block;
 }
-#notice, #playListsButton, .playlist , .current_playlist, .playlist a, .current_playlist a, #videos{
-    display:flex;
+#notice,
+#playlistsButton,
+.playlist,
+.current_playlist,
+.playlist a,
+.current_playlist a,
+#videos {
+  display: flex;
 }
-#playListsButton{
-    display: inline-block;
+#playlistsButton {
+  display: inline-block;
 }
-#briefly{
-    display:none;
-}
-
-#notice > *, #playLists{
-    overflow: scroll;
-}
-
-.video_title, #videoDescription, #youtuber{    
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+#briefly {
+  display: none;
 }
 
-textarea{
-    height: 30vh;
-    border: none;
-    resize: none;
+#notice > *,
+#playlists {
+  overflow: scroll;
 }
 
-.checkbox{
-    zoom: 1.4;
+.video_title,
+#videoDescription,
+#youtuber {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+textarea {
+  height: 30vh;
+  border: none;
+  resize: none;
+}
+
+.checkbox {
+  zoom: 1.4;
 }

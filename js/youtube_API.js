@@ -3,7 +3,6 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let id = new URL(window.location.href).searchParams.get("page");
-
 function onYouTubeIframeAPIReady(fileName) {
     var youtubePlayer = new YT.Player('youtubePlayer', {
         videoId: id,
@@ -15,8 +14,6 @@ function onYouTubeIframeAPIReady(fileName) {
         }
     });
 }
-
-var nextId;
 function onPlayerStateChange(event) {
     if (event.data === 0) {
         let currentPlayList = document.getElementsByClassName("current_playlist")[0];
