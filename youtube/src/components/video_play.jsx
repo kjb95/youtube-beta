@@ -1,6 +1,13 @@
 import React from 'react';
+import {useLocation} from 'react-router';
+import ReactPlayer from 'react-player'
+import qs from 'qs';
 
 const VideoPlay = () => {
+  const location = useLocation();
+  const query = qs.parse(location.search, { ignoreQueryPrefix: true });
+  const youtbeURL = 'https://www.youtube.com/watch?v='+query.page;
+
   return (
     <>
       <aside>
@@ -14,7 +21,9 @@ const VideoPlay = () => {
       </aside>
       <main id='video'>
           <section id='notice'></section>
-          <section id='youtubePlayer'></section>
+          <section id='youtubePlayer'>
+            <ReactPlayer url={youtbeURL} playing controls/>
+          </section>
           <section>
               <div id='videoTitle'></div><br/>
               <div id='videoInformation'></div><br/>
@@ -27,12 +36,6 @@ const VideoPlay = () => {
               <div id='briefly'></div><br/>
           </section>
       </main>
-      <footer>
-          {/* <script type='text/javascript' src='../js/youtube_API.js'></script>
-          <script type='text/javascript' src='../js/video_play.js'></script>
-          <script type='text/javascript' src='../js/playlist.js'></script>
-          <script type='text/javascript' src='../js/notice.js'></script> */}
-      </footer>
     </>
   );
 }
