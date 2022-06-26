@@ -1,3 +1,5 @@
+import React from 'react';
+
 const IndexVideo = ({youtubeId, videoImg, videoTitle, yotuber, videoInformation}) => {
   let youtbeAddress = `/video_play?page=${youtubeId}`;
   let videoImgAddress = `./img/${videoImg}`;

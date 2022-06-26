@@ -1,3 +1,5 @@
+import React from 'react';
+
 import IndexVideo from './index_video';
 import useAsync from '../hooks/useAsync';
 import "../css/common.css";
