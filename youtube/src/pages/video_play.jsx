@@ -5,6 +5,7 @@ import qs from "qs";
 
 import * as common from "../service/common.js";
 import Playlist from "../components/video_play/playlist";
+import RandomButton from '../components/video_play/randomButton';
 
 import "../style/common.css";
 import "../style/video_play.css";
@@ -43,11 +44,7 @@ const VideoPlay = () => {
         </section>
         <section id="playlistsButton">
           <input type="hidden" id="isRandom" value="false" />
-          <img
-            id="randomButton"
-            src="./img/randomButton.png"
-            alt="randomButton"
-          />
+          <RandomButton setSequentialPlaylist={setSequentialPlaylist} setRandomPlaylist={setRandomPlaylist}/>
           <img id="addButton" src="./img/addButton.png" alt="addButton" />
           <img
             id="deleteButton"

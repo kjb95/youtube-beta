@@ -23,14 +23,17 @@ const Index = () => {
   return (
     <main id="videos">
       {playlist.map((playlist) => (
-        <IndexVideo
-          playlistName="video"
-          youtubeId={playlist.id}
-          videoImg={playlist.img}
-          videoTitle={playlist.title}
-          yotuber={playlist.youtuber}
-          videoInformation={playlist.information}
-        />
+        <li key={playlist.id}>
+          <IndexVideo
+            playlistName="video"
+            youtubeId={playlist.id}
+            videoImg={playlist.img}
+            videoTitle={playlist.title}
+            yotuber={playlist.youtuber}
+            videoInformation={playlist.information}
+            isCheckBox='false'
+          />
+        </li>
       ))}
     </main>
   );

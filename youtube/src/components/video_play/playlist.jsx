@@ -24,14 +24,17 @@ function loadPlaylist(data) {
     if (url.searchParams.get("page") === playlistElement.id)
       playlistName = 'current_playlist';
 
-    return <IndexVideo
-      playlistName={playlistName} 
-      youtubeId={playlistElement.id}
-      videoImg={playlistElement.img} 
-      videoTitle={playlistElement.title} 
-      yotuber={playlistElement.youtuber} 
-      videoInformation={playlistElement.information} 
-    />
+    return <li key={playlistElement.id}>
+      <IndexVideo
+        playlistName={playlistName} 
+        youtubeId={playlistElement.id}
+        videoImg={playlistElement.img} 
+        videoTitle={playlistElement.title} 
+        yotuber={playlistElement.youtuber} 
+        videoInformation={playlistElement.information}
+        isCheckBox='true'
+      />
+    </li>
   })
 }
 

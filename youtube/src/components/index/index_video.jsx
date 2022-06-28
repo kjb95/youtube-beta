@@ -1,11 +1,11 @@
 import React from 'react';
 
-const IndexVideo = ({playlistName ,youtubeId, videoImg, videoTitle, yotuber, videoInformation}) => {
+const IndexVideo = ({playlistName ,youtubeId, videoImg, videoTitle, yotuber, videoInformation, isCheckBox}) => {
   let youtbeAddress = `/video_play?page=${youtubeId}`;
   let videoImgAddress = `./img/${videoImg}`;
 
   return <div className={playlistName}>
-    <input className="checkbox" type="checkbox" id={youtubeId}></input>
+    {isCheckBox === 'true' && <input className="checkbox" type="checkbox" id={youtubeId}></input>}
     <a href={youtbeAddress}>
       <img className="video_img" src={videoImgAddress} alt='video_img'/>
       <div className="playlist_text">
