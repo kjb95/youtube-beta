@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Index from './components/index';
-import VideoPlay from './components/video_play';
+import Index from './pages/index';
+import VideoPlay from './pages/video_play';
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
