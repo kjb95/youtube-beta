@@ -5,7 +5,9 @@ import qs from "qs";
 
 import * as common from "../service/common.js";
 import Playlist from "../components/video_play/playlist";
-import RandomButton from '../components/video_play/randomButton';
+import RandomButton from "../components/video_play/random_button";
+import AddButton from "../components/video_play/add_button";
+import AddPlaylistModal from '../components/video_play/add_playlist_modal';
 
 import "../style/common.css";
 import "../style/video_play.css";
@@ -20,6 +22,7 @@ const VideoPlay = () => {
 
   const [sequentialPlaylist, setSequentialPlaylist] = useState(undefined);
   const [randomPlaylist, setRandomPlaylist] = useState(undefined);
+  const [addPlaylistModal, setAddPlaylistModal] = useState(false);
 
   useEffect(() => {
     common
@@ -44,8 +47,11 @@ const VideoPlay = () => {
         </section>
         <section id="playlistsButton">
           <input type="hidden" id="isRandom" value="false" />
-          <RandomButton setSequentialPlaylist={setSequentialPlaylist} setRandomPlaylist={setRandomPlaylist}/>
-          <img id="addButton" src="./img/addButton.png" alt="addButton" />
+          <RandomButton
+            setSequentialPlaylist={setSequentialPlaylist}
+            setRandomPlaylist={setRandomPlaylist}
+          />
+          <AddButton setAddPlaylistModal={setAddPlaylistModal}/>
           <img
             id="deleteButton"
             src="./img/deleteButton.png"
@@ -54,6 +60,7 @@ const VideoPlay = () => {
         </section>
       </aside>
       <main id="video">
+        <AddPlaylistModal addPlaylistModal={addPlaylistModal} setAddPlaylistModal={setAddPlaylistModal} setSequentialPlaylist={setSequentialPlaylist} setRandomPlaylist={setRandomPlaylist}/>
         <section id="notice"></section>
         <section id="youtubePlayer">
           <ReactPlayer
