@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import ReactPlayer from "react-player";
 import qs from "qs";
 
 import * as common from "../service/common.js";
+import * as video_play from "../service/video_play";
 
 import Playlist from "../components/video_play/playlist";
 import RandomButton from "../components/video_play/random_button";
@@ -25,15 +26,6 @@ const VideoPlay = () => {
   const [sequentialPlaylist, setSequentialPlaylist] = useState(undefined);
   const [randomPlaylist, setRandomPlaylist] = useState(undefined);
   const [addPlaylistModal, setAddPlaylistModal] = useState(false);
-  const [checkboxs, setCheckboxs] = useState();
-
-  const checkboxChange = (event) => {
-    const {name, checked} = event.target;
-    setCheckboxs({
-      ...checkboxs,
-      [name]: checked
-    });
-  }
   
   useEffect(() => {
     common
@@ -45,7 +37,23 @@ const VideoPlay = () => {
       });
   }, []);
 
+  const [checkboxs, setCheckboxs] = useState();
+
+  const checkboxChange = (event) => {
+    const {name, checked} = event.target;
+    setCheckboxs({
+      ...checkboxs,
+      [name]: checked
+    });
+  }
+
+  const viewMoreRef = useRef();
+  const brieflyRef = useRef();
+  const descriptionRef = useRef();
+
   if (!sequentialPlaylist || !randomPlaylist) return "";
+
+  const currentPlaylist = common.getCurrentPlaylist(sequentialPlaylist, query.page);
 
   return (
     <>
@@ -80,21 +88,27 @@ const VideoPlay = () => {
           />
         </section>
         <section>
-          <div id="videoTitle"></div>
+          <div id="videoTitle">{currentPlaylist.title}</div>
           <br />
-          <div id="videoInformation"></div>
+          <div id="videoInformation">{currentPlaylist.information}</div>
           <br />
         </section>
         <section id="youtuberInformation">
           <br />
-          <div id="youtuber"></div>
+          <div id="youtuber">{currentPlaylist.youtuber}</div>
           <br />
-          <div id="subscriber"></div>
+          <div id="subscriber">{currentPlaylist.subscriber}</div>
           <br />
-          <div id="videoDescription"></div>
+          <div id="videoDescription" ref={descriptionRef}>{currentPlaylist.description}</div>
           <br />
-          <div id="viewMore"></div>
-          <div id="briefly"></div>
+          <div 
+            id="viewMore" 
+            onClick={ event => {video_play.viewMore(viewMoreRef, descriptionRef, brieflyRef);} }
+            ref={viewMoreRef}>더보기</div>
+          <div 
+            id="briefly"
+            onClick={ event => {video_play.briefly(viewMoreRef, descriptionRef, brieflyRef);} }
+            ref={brieflyRef}>간략히</div>
           <br />
         </section>
       </main>
