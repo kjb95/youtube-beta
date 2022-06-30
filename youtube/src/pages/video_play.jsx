@@ -4,10 +4,12 @@ import ReactPlayer from "react-player";
 import qs from "qs";
 
 import * as common from "../service/common.js";
+
 import Playlist from "../components/video_play/playlist";
 import RandomButton from "../components/video_play/random_button";
 import AddButton from "../components/video_play/add_button";
 import AddPlaylistModal from '../components/video_play/add_playlist_modal';
+import DeleteButton from '../components/video_play/delete_button';
 
 import "../style/common.css";
 import "../style/video_play.css";
@@ -23,7 +25,16 @@ const VideoPlay = () => {
   const [sequentialPlaylist, setSequentialPlaylist] = useState(undefined);
   const [randomPlaylist, setRandomPlaylist] = useState(undefined);
   const [addPlaylistModal, setAddPlaylistModal] = useState(false);
+  const [checkboxs, setCheckboxs] = useState();
 
+  const checkboxChange = (event) => {
+    const {name, checked} = event.target;
+    setCheckboxs({
+      ...checkboxs,
+      [name]: checked
+    });
+  }
+  
   useEffect(() => {
     common
       .fetchPlaylist()
@@ -41,6 +52,7 @@ const VideoPlay = () => {
       <aside>
         <section id="playlists">
           <Playlist
+            checkboxChange={checkboxChange}
             sequentialPlaylist={sequentialPlaylist}
             randomPlaylist={randomPlaylist}
           />
@@ -52,11 +64,7 @@ const VideoPlay = () => {
             setRandomPlaylist={setRandomPlaylist}
           />
           <AddButton setAddPlaylistModal={setAddPlaylistModal}/>
-          <img
-            id="deleteButton"
-            src="./img/deleteButton.png"
-            alt="deleteButton"
-          />
+          <DeleteButton checkboxs={checkboxs} setSequentialPlaylist={setSequentialPlaylist} setRandomPlaylist={setRandomPlaylist}/>
         </section>
       </aside>
       <main id="video">

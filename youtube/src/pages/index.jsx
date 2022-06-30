@@ -31,7 +31,6 @@ const Index = () => {
             videoTitle={playlist.title}
             yotuber={playlist.youtuber}
             videoInformation={playlist.information}
-            isCheckBox='false'
           />
         </li>
       ))}
