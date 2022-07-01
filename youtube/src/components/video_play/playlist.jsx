@@ -12,7 +12,6 @@ const Playlist = ({ checkboxChange, sequentialPlaylist, randomPlaylist }) => {
 };
 
 function loadPlaylist(data, checkboxChange ) {
-  
   let url = new URL(window.location.href);
 
   return data.map((playlistElement) => {

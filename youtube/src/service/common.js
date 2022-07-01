@@ -30,3 +30,29 @@ export const getCurrentPlaylist = (sequentialPlaylist, page) => {
   })
   return currentPlaylist;
 }
+
+export const fetchNotice = async () => {
+  return await fetch('/json/notice.json')
+  .then((response) => response.json())
+  .then(data => data.notices);
+}
+
+export const setCookie = (name, value, expire) => {
+  const currentDay = new Date();
+  currentDay.setTime(currentDay.getTime() + expire);
+  document.cookie =
+    name + "=" + value + "; expires=" + currentDay.toUTCString();
+}
+
+export const getCookie = (name) => {
+  if (document.cookie === "") return "";
+
+  const cookies = document.cookie.split(";");
+
+  for (let i in cookies) {
+    const key = (Number)(cookies[i].split("=")[0].trim());
+    const value = cookies[i].split("=")[1].trim();
+    if (key === name) return value;
+  }
+  return "";
+}

@@ -152,3 +152,7 @@ textarea {
 .checkbox {
   zoom: 1.4;
 }
+
+li{
+  list-style:none;
+}

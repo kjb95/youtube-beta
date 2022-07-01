@@ -11,6 +11,7 @@ import RandomButton from "../components/video_play/random_button";
 import AddButton from "../components/video_play/add_button";
 import AddPlaylistModal from '../components/video_play/add_playlist_modal';
 import DeleteButton from '../components/video_play/delete_button';
+import Notice from '../components/video_play/notice';
 
 import "../style/common.css";
 import "../style/video_play.css";
@@ -26,19 +27,23 @@ const VideoPlay = () => {
   const [sequentialPlaylist, setSequentialPlaylist] = useState(undefined);
   const [randomPlaylist, setRandomPlaylist] = useState(undefined);
   const [addPlaylistModal, setAddPlaylistModal] = useState(false);
+  const [notice, setNotice] = useState(undefined);
   
   useEffect(() => {
-    common
-      .fetchPlaylist()
+    common.fetchPlaylist()
       .then((data) => common.getJsonPlaylist(data))
       .then((data) => {
         setSequentialPlaylist(data[0]);
         setRandomPlaylist(data[1]);
       });
+    
+    common.fetchNotice()
+      .then(data => {
+        setNotice(data);
+      })
   }, []);
 
   const [checkboxs, setCheckboxs] = useState();
-
   const checkboxChange = (event) => {
     const {name, checked} = event.target;
     setCheckboxs({
@@ -47,11 +52,40 @@ const VideoPlay = () => {
     });
   }
 
+  const [noticeCookie, setNoticeCookie] = useState();
+  const clickDoNotSeeToday = (event) => {
+    const {name} = event.target;
+
+    if (event.target.checked === true)
+      setNoticeCookie({
+        ...noticeCookie,
+        [name]: true
+      })
+    else
+      setNoticeCookie({
+        ...noticeCookie,
+        [name]: false
+      })
+  }
+
+  const [isNoticeClose, setIsNoticeClose] = useState();
+  const noticeClose = (event) => {
+    const {name} = event.target;
+    setIsNoticeClose({
+      ...isNoticeClose,
+      [name]: true
+    })
+
+    if (noticeCookie && noticeCookie[name] === true)
+      common.setCookie(name, 'true', 86400000);  // 하루동안 열지 않기
+  }
+  
+  const noticeRef = useRef();
   const viewMoreRef = useRef();
   const brieflyRef = useRef();
   const descriptionRef = useRef();
 
-  if (!sequentialPlaylist || !randomPlaylist) return "";
+  if (!sequentialPlaylist || !randomPlaylist || !notice) return "";
 
   const currentPlaylist = common.getCurrentPlaylist(sequentialPlaylist, query.page);
 
@@ -76,8 +110,23 @@ const VideoPlay = () => {
         </section>
       </aside>
       <main id="video">
-        <AddPlaylistModal addPlaylistModal={addPlaylistModal} setAddPlaylistModal={setAddPlaylistModal} setSequentialPlaylist={setSequentialPlaylist} setRandomPlaylist={setRandomPlaylist}/>
-        <section id="notice"></section>
+        <AddPlaylistModal 
+          addPlaylistModal={addPlaylistModal}
+          setAddPlaylistModal={setAddPlaylistModal}
+          setSequentialPlaylist={setSequentialPlaylist}
+          setRandomPlaylist={setRandomPlaylist}
+        />
+        {
+          !video_play.isNoticeAllClose(notice, isNoticeClose) &&
+          <section id='notice' ref={noticeRef}>
+            <Notice 
+              notice={notice}
+              isNoticeClose={isNoticeClose}
+              noticeClose={noticeClose}
+              clickDoNotSeeToday={clickDoNotSeeToday}
+            />
+          </section>
+        }
         <section id="youtubePlayer">
           <ReactPlayer
             url={youtbeURL}
