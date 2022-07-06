@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 
 import "../style/css/common.css";
 
-import * as common from "../service/common.js";
+import { fetchPlaylist, getJsonPlaylist} from "../service/common";
 import { IndexVideoMain } from "../style/styled_component/index";
+
 import IndexVideoElement from "../components/index/index_video_element";
 
 const Index = () => {
   const [playlist, setPlaylist] = useState(undefined);
 
   useEffect(() => {
-    common
-      .fetchPlaylist()
-      .then((data) => common.getJsonPlaylist(data))
+    fetchPlaylist()
+      .then((data) => getJsonPlaylist(data))
       .then((data) => {
         setPlaylist(data[0]);
       });

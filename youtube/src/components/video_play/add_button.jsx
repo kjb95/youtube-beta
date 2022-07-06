@@ -1,5 +1,6 @@
 import React from "react";
 import { PlaylistModifyButtonImg } from "../../style/styled_component/video_play";
+import { openAddPlaylistModal } from '../../service/vide_play/add_button'
 
 const AddButton = ({ setAddPlaylistModal }) => {
   return <PlaylistModifyButtonImg 
@@ -7,10 +8,6 @@ const AddButton = ({ setAddPlaylistModal }) => {
     alt="addButton" 
     onClick={event => openAddPlaylistModal(setAddPlaylistModal)}
   />
-};
-
-const openAddPlaylistModal = (setAddPlaylistModal) => {
-  setAddPlaylistModal(true);
 };
 
 export default AddButton;
