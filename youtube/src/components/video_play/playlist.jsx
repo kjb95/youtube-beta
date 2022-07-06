@@ -1,6 +1,6 @@
 import React from "react";
 
-import IndexVideo from "../index/index_video";
+import PlaylistElement from './playlist_element';
 
 const Playlist = ({ checkboxChange, sequentialPlaylist, randomPlaylist }) => {
   let isRandom = window.localStorage.getItem("isRandom");
@@ -11,7 +11,7 @@ const Playlist = ({ checkboxChange, sequentialPlaylist, randomPlaylist }) => {
   return loadPlaylist(sequentialPlaylist, checkboxChange );
 };
 
-function loadPlaylist(data, checkboxChange ) {
+function loadPlaylist(data, checkboxChange) {
   let url = new URL(window.location.href);
 
   return data.map((playlistElement) => {
@@ -21,20 +21,17 @@ function loadPlaylist(data, checkboxChange ) {
     if (url.searchParams.get("page") === playlistElement.id)
       playlistName = "current_playlist";
 
-    return (
-      <li key={playlistElement.id}>
-        <IndexVideo
-          playlistName={playlistName}
-          youtubeId={playlistElement.id}
-          videoImg={playlistElement.img}
-          videoTitle={playlistElement.title}
-          yotuber={playlistElement.youtuber}
-          videoInformation={playlistElement.information}
-          isCheckbox="true"
-          checkboxChange={checkboxChange}
-        />
-      </li>
-    );
+    return <li key={playlistElement.id}>
+      <PlaylistElement
+        playlistName={playlistName}
+        youtubeId={playlistElement.id}
+        videoImg={playlistElement.img}
+        videoTitle={playlistElement.title}
+        yotuber={playlistElement.youtuber}
+        videoInformation={playlistElement.information}
+        checkboxChange={checkboxChange}
+      />
+    </li>
   });
 }
 

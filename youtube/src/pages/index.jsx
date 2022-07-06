@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import "../style/common.css";
-// import "../../style/index.css";
+import "../style/css/common.css";
 
-import IndexVideo from "../components/index/index_video";
 import * as common from "../service/common.js";
+import { IndexVideoMain } from "../style/styled_component/index";
+import IndexVideoElement from "../components/index/index_video_element";
 
 const Index = () => {
   const [playlist, setPlaylist] = useState(undefined);
@@ -20,22 +20,19 @@ const Index = () => {
 
   if (!playlist) return "";
 
-  return (
-    <main id="videos">
-      {playlist.map((playlist) => (
-        <li key={playlist.id}>
-          <IndexVideo
-            playlistName="video"
-            youtubeId={playlist.id}
-            videoImg={playlist.img}
-            videoTitle={playlist.title}
-            yotuber={playlist.youtuber}
-            videoInformation={playlist.information}
-          />
-        </li>
-      ))}
-    </main>
-  );
+  return <IndexVideoMain>
+    {playlist.map((playlist) => (
+      <li key={playlist.id}>
+        <IndexVideoElement
+          youtubeId={playlist.id}
+          videoImg={playlist.img}
+          videoTitle={playlist.title}
+          yotuber={playlist.youtuber}
+          videoInformation={playlist.information}
+        />
+      </li>
+    ))}
+  </IndexVideoMain>
 };
 
 export default Index;
