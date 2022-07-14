@@ -60,3 +60,9 @@ export const noticeClose = (event, isNoticeClose, setIsNoticeClose, noticeCookie
   if (noticeCookie && noticeCookie[name] === true)
     setCookie(name, "true", 86400000); // 하루동안 열지 않기
 };
+
+export const goNextPlaylist = (nextPlaylist) => {
+  if (nextPlaylist === undefined)
+    return null;
+  document.location.href = `/video_play?page=${nextPlaylist.id}`;
+}

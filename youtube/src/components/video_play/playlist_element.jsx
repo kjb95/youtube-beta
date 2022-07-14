@@ -12,30 +12,31 @@ import {
 
 const PlaylistElement = ({
   playlistName,
-  youtubeId,
-  videoImg,
-  videoTitle,
-  yotuber,
-  videoInformation,
+  id,
+  title,
+  channelTitle,
+  viewCount,
+  publishedAt,
   checkboxChange = null,
 }) => {
-  const youtbeAddress = `/video_play?page=${youtubeId}`;
-  const videoImgAddress = `./img/${videoImg}`;
+
+  const youtbeAddress = `/video_play?page=${id}`;
+  const videoImgAddress = `https://img.youtube.com/vi/${id}/mqdefault.jpg`
 
   return <PlaylistBox className={playlistName}>
     <input
       type="checkbox"
-      id={youtubeId}
-      name={youtubeId}
+      id={id}
+      name={id}
       onClick={checkboxChange}
     />
     <PlaylistAnchorBox playlistName={playlistName}>
       <a href={youtbeAddress}>
         <PlaylistVideoImg src={videoImgAddress} alt="video_img" />
         <div>
-          <PlaylistTitleBox>{videoTitle}</PlaylistTitleBox>
-          <PlaylistYoutuberBox>{yotuber}</PlaylistYoutuberBox>
-          <PlaylistInformationBox>{videoInformation}</PlaylistInformationBox>
+          <PlaylistTitleBox>{title}</PlaylistTitleBox>
+          <PlaylistYoutuberBox>{channelTitle}</PlaylistYoutuberBox>
+          <PlaylistInformationBox>조회수 {viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
         </div>
       </a>
     </PlaylistAnchorBox>

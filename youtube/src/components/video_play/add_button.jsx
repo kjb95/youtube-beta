@@ -6,7 +6,7 @@ const AddButton = ({ setAddPlaylistModal }) => {
   return <PlaylistModifyButtonImg 
     src="./img/addButton.png" 
     alt="addButton" 
-    onClick={event => openAddPlaylistModal(setAddPlaylistModal)}
+    onClick={() => openAddPlaylistModal(setAddPlaylistModal)}
   />
 };
 

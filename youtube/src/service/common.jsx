@@ -1,10 +1,6 @@
-export const fetchPlaylist = async () => {
-  return await fetch('/json/playlist.json')
-    .then((response) => response.json())
-    .then(data => data.playlists);
-}
+import axios from 'axios';
 
-export const getJsonPlaylist = async (data) => {
+export const getJsonPlaylist = (data) => {
   if (!data)
     return null;
   let sequentialPlaylist = window.localStorage.getItem("sequentialPlaylist");
@@ -22,13 +18,23 @@ export const getJsonPlaylist = async (data) => {
   return [parsedSequentialPlaylist, parsedRandomPlaylist];
 }
 
-export const getCurrentPlaylist = (sequentialPlaylist, page) => {
-  let currentPlaylist;
-  sequentialPlaylist.forEach(playlist => {
-    if (playlist.id === page)
-      currentPlaylist = playlist;
-  })
-  return currentPlaylist;
+export const setPlaylist = (jsonPlaylist, page, setCurrentPlaylist, setNextPlaylist) => {
+  let findCurrentPlaylist = false;
+  const isRandom = window.localStorage.getItem('isRandom');
+  let playlist = jsonPlaylist[0];
+  if (isRandom === 'true')
+    playlist = jsonPlaylist[1];
+
+  for(let i=0; i<playlist.length; i++) {
+    if (findCurrentPlaylist === true){
+      setNextPlaylist(playlist[i]);
+      break ;
+    }
+    if (playlist[i].id === page) {
+      setCurrentPlaylist(playlist[i]);
+      findCurrentPlaylist = true;
+    }
+  }
 }
 
 export const fetchNotice = async () => {
@@ -55,4 +61,80 @@ export const getCookie = (name) => {
     if (key === name) return value;
   }
   return "";
+}
+
+async function callYoutubeAPI(type, part, id) {
+  return await axios.get(`https://www.googleapis.com/youtube/v3/${type}?part=${part}&id=${id}&key=${process.env.REACT_APP_YOUTUBE_API}`)
+    .then(res => res.data.items[0]);
+}
+
+export async function getYoutubeData(id) {
+  let data1 = await callYoutubeAPI('videos', 'snippet', id);
+  const data2 = await callYoutubeAPI('videos', 'statistics', id);
+  const data3 = await callYoutubeAPI('channels', 'statistics', data1.snippet.channelId);
+
+  data1 = data1.snippet;
+  return {
+    id: id,
+    channelId: data1.channelId,
+    channelTitle: data1.channelTitle,
+    description: data1.description,
+    title: data1.title,
+    publishedAt: data1.publishedAt,
+    viewCount: data2.statistics.viewCount,
+    subscriberCount: data3.statistics.subscriberCount,
+    isExist: true
+  }
+}
+
+async function fetchPlaylist() {
+  return await fetch('json/playlist.json')
+    .then((res) => res.json())
+    .then(data => data.playlist);
+}
+
+export async function getYoutubeDataList() {
+  let playlist = [];
+
+  await fetchPlaylist()
+    .then(data => {
+      data.forEach(data => {
+        playlist.push(getYoutubeData(data.id));
+      })
+    });
+  
+  return await Promise.all(playlist);
+
+  // let pl = [];
+  //   pl[0] = {
+  //     id: 'hn4XiirKdNE',
+  //     channelTitle:'channelTitle1',
+  //     description:'description1',
+  //     publishedAt:'publishedAt1',
+  //     title:'title1',
+  //     viewCount:'viewCount1',
+  //     subscriberCount:'subscriberCount1',
+  //     isExist: true
+  //   }
+  //   pl[1] = {
+  //     id:'V60QQDA57SA',
+  //     channelTitle:'channelTitle2',
+  //     description:'description2',
+  //     publishedAt:'publishedAt2',
+  //     title:'title2',
+  //     viewCount:'viewCount2',
+  //     subscriberCount:'subscriberCount2',
+  //     isExist: true
+  //   }
+  //   pl[2] = {
+  //     id:'X3S4ju8BZ-w',
+  //     channelTitle:'channelTitle3',
+  //     description:'description3',
+  //     publishedAt:'publishedAt3',
+  //     title:'title3',
+  //     viewCount:'viewCount3',
+  //     subscriberCount:'subscriberCount3',
+  //     isExist: true
+  //   }  
+  // return pl;
 }

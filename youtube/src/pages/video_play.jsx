@@ -1,10 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+          import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import ReactPlayer from "react-player";
 import qs from "qs";
 
-import { fetchPlaylist, getJsonPlaylist, getCurrentPlaylist, fetchNotice} from "../service/common";
-import { viewMore, briefly, isNoticeAllClose, checkboxChange, clickDoNotSeeToday, noticeClose } from '../service/vide_play/video_play';
+import {
+  fetchNotice,
+  getJsonPlaylist,
+  setPlaylist,
+} from "../service/common";
+import {
+  viewMore,
+  briefly,
+  isNoticeAllClose,
+  checkboxChange,
+  clickDoNotSeeToday,
+  noticeClose,
+  goNextPlaylist,
+} from "../service/vide_play/video_play";
 
 import Playlist from "../components/video_play/playlist";
 import RandomButton from "../components/video_play/random_button";
@@ -31,6 +43,7 @@ import {
   PlayingVideoDiscriptionViewMore,
   PlayingVideoDescriptionBriefly,
 } from "../style/styled_component/video_play";
+import { getYoutubeDataList } from "../service/common";
 
 const VideoPlay = () => {
   // window.localStorage.clear();
@@ -45,37 +58,41 @@ const VideoPlay = () => {
   const [checkboxs, setCheckboxs] = useState();
   const [noticeCookie, setNoticeCookie] = useState();
   const [isNoticeClose, setIsNoticeClose] = useState();
+  const [currentPlaylist, setCurrentPlaylist] = useState(undefined);
+  const [nextPlaylist, setNextPlaylist] = useState(undefined);
 
   const viewMoreRef = useRef();
   const brieflyRef = useRef();
   const descriptionRef = useRef();
 
   useEffect(() => {
-    fetchPlaylist()
-      .then((data) => getJsonPlaylist(data))
-      .then((data) => {
-        setSequentialPlaylist(data[0]);
-        setRandomPlaylist(data[1]);
-      });
-
-    fetchNotice().then((data) => {
-      setNotice(data);
+    //  window.localStorage.clear();
+    getYoutubeDataList().then((res) => {
+      const jsonPlaylist = getJsonPlaylist(res);
+      setSequentialPlaylist(jsonPlaylist[0]);
+      setRandomPlaylist(jsonPlaylist[1]);
     });
+    fetchNotice().then((data) => setNotice(data));
   }, []);
 
-  if (!sequentialPlaylist || !randomPlaylist || !notice) return "";
+  useEffect(() => {
+    getYoutubeDataList().then((res) => {
+      const jsonPlaylist = getJsonPlaylist(res);
+      setPlaylist(jsonPlaylist, query.page, setCurrentPlaylist, setNextPlaylist);
+    });
+  }, [sequentialPlaylist, randomPlaylist, query.page])
 
-  const currentPlaylist = getCurrentPlaylist(
-    sequentialPlaylist,
-    query.page
-  );
+  if (!sequentialPlaylist || !randomPlaylist || !notice || !currentPlaylist)
+    return "";
 
   return (
     <>
       <aside>
         <PlaylistsSection>
           <Playlist
-            checkboxChange={ event => { checkboxChange(event, checkboxs, setCheckboxs); }}
+            checkboxChange={(event) => {
+              checkboxChange(event, checkboxs, setCheckboxs);
+            }}
             sequentialPlaylist={sequentialPlaylist}
             randomPlaylist={randomPlaylist}
           />
@@ -95,22 +112,27 @@ const VideoPlay = () => {
         </PlaylistModifyButtonsSection>
       </aside>
 
-      <PlayingVideoMain id='video'>
+      <PlayingVideoMain id="video">
         <AddPlaylistModal
           addPlaylistModal={addPlaylistModal}
           setAddPlaylistModal={setAddPlaylistModal}
           setSequentialPlaylist={setSequentialPlaylist}
           setRandomPlaylist={setRandomPlaylist}
         />
-        {!isNoticeAllClose(notice, isNoticeClose) && (  // 공지사항이 모두 닫히지 않았다면
+        {!isNoticeAllClose(notice, isNoticeClose) && ( // 공지사항이 모두 닫히지 않았다면
           <NoticeBox id="notice">
             <Notice
               notice={notice}
               isNoticeClose={isNoticeClose}
-              noticeClose={event => {
-                noticeClose(event, isNoticeClose, setIsNoticeClose, noticeCookie)}
-              }
-              clickDoNotSeeToday={event => {
+              noticeClose={(event) => {
+                noticeClose(
+                  event,
+                  isNoticeClose,
+                  setIsNoticeClose,
+                  noticeCookie
+                );
+              }}
+              clickDoNotSeeToday={(event) => {
                 clickDoNotSeeToday(event, noticeCookie, setNoticeCookie);
               }}
             />
@@ -123,23 +145,24 @@ const VideoPlay = () => {
             height="100%"
             playing
             controls
+            onEnded={() => {
+              goNextPlaylist(nextPlaylist);
+            }}
           />
         </PlayingYoutubePlayerSection>
         <PlayingVideoDiscriptionSection1>
-          <PlayingVideoTitleBox>
-            {currentPlaylist.title}
-          </PlayingVideoTitleBox>
+          <PlayingVideoTitleBox>{currentPlaylist.title}</PlayingVideoTitleBox>
           <PlayingVideoInformationBox>
-            {currentPlaylist.information}
+            조회수 {currentPlaylist.viewCount} ⦁ {currentPlaylist.publishedAt}
           </PlayingVideoInformationBox>
         </PlayingVideoDiscriptionSection1>
 
         <PlayingVideoDiscriptionSection2>
           <PlayingVideoYoutuberBox>
-            {currentPlaylist.youtuber}
+            {currentPlaylist.channelTitle}
           </PlayingVideoYoutuberBox>
           <PlayingVideoSubscriberBox>
-            {currentPlaylist.subscriber}
+            구독자 {currentPlaylist.subscriberCount}명
           </PlayingVideoSubscriberBox>
         </PlayingVideoDiscriptionSection2>
 
@@ -147,14 +170,20 @@ const VideoPlay = () => {
           <PlayingVideoDescriptionBox ref={descriptionRef}>
             {currentPlaylist.description}
           </PlayingVideoDescriptionBox>
-          <PlayingVideoDiscriptionViewMore 
-            onClick={event => { viewMore(viewMoreRef, descriptionRef, brieflyRef); }}
-            ref={viewMoreRef}>
+          <PlayingVideoDiscriptionViewMore
+            onClick={() => {
+              viewMore(viewMoreRef, descriptionRef, brieflyRef);
+            }}
+            ref={viewMoreRef}
+          >
             더보기
           </PlayingVideoDiscriptionViewMore>
-          <PlayingVideoDescriptionBriefly 
-            onClick={event => { briefly(viewMoreRef, descriptionRef, brieflyRef); }}
-            ref={brieflyRef}>
+          <PlayingVideoDescriptionBriefly
+            onClick={() => {
+              briefly(viewMoreRef, descriptionRef, brieflyRef);
+            }}
+            ref={brieflyRef}
+          >
             간략히
           </PlayingVideoDescriptionBriefly>
         </PlayingVideoDiscriptionSection3>

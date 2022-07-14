@@ -7,7 +7,7 @@ const DeleteButton = ({checkboxs, setSequentialPlaylist, setRandomPlaylist}) => 
     <PlaylistModifyButtonImg 
       src="./img/deleteButton.png"
       alt="deleteButton"
-      onClick={event => { deletePlayList(checkboxs, setSequentialPlaylist, setRandomPlaylist); }}
+      onClick={() => { deletePlayList(checkboxs, setSequentialPlaylist, setRandomPlaylist); }}
     />
   );
 };

@@ -1,23 +1,25 @@
-export const inputChange = (event, inputs, setInputs) => {
-  const { value, name } = event.target;
-  setInputs({ ...inputs, [name]: value });
+import { getYoutubeData } from "../common";
+
+export const inputChange = (event, setId) => {
+  setId(event.target.value);
 };
 
-export const addPlaylist = (
-  inputs,
+export const addPlaylist = async (
+  id,
   setAddPlaylistModal,
   setSequentialPlaylist,
   setRandomPlaylist,
-  setInputs
+  setId
 ) => {
-  const sequentialPlaylist =
-    window.localStorage.getItem("sequentialPlaylist");
+  const sequentialPlaylist = window.localStorage.getItem("sequentialPlaylist");
   const randomPlaylist = window.localStorage.getItem("randomPlaylist");
   const parsedSequentialPlaylist = JSON.parse(sequentialPlaylist);
   const parsedRandomPlaylist = JSON.parse(randomPlaylist);
 
-  parsedSequentialPlaylist.push(inputs);
-  parsedRandomPlaylist.push(inputs);
+  const youtubeData = await getYoutubeData(id);
+
+  parsedSequentialPlaylist.push(youtubeData);
+  parsedRandomPlaylist.push(youtubeData);
 
   window.localStorage.setItem(
     "sequentialPlaylist",
@@ -31,28 +33,10 @@ export const addPlaylist = (
   setSequentialPlaylist(parsedSequentialPlaylist);
   setRandomPlaylist(parsedRandomPlaylist);
   setAddPlaylistModal(false);
-  setInputs({
-    id: "",
-    img: "",
-    title: "",
-    youtuber: "",
-    information: "",
-    subscriber: "",
-    isExist: true,
-    description: "",
-  });
+  setId("");
 };
 
-export const closeModal = (setAddPlaylistModal, setInputs) => {
+export const closeModal = (setAddPlaylistModal, setId) => {
   setAddPlaylistModal(false);
-  setInputs({
-    id: "",
-    img: "",
-    title: "",
-    youtuber: "",
-    information: "",
-    subscriber: "",
-    isExist: true,
-    description: "",
-  });
+  setId("");
 };

@@ -12,7 +12,6 @@ export const PlaylistYoutuberBox = styled.div`
 `;
 export const PlaylistTitleBox = styled(OverflowBox)`
   color: white;
-  font-size: large;
 `;
 
 export const IndexVideoMain = styled.main`
@@ -21,6 +20,7 @@ export const IndexVideoMain = styled.main`
 
   & > * {
     padding: 10px;
+    width: 400px;
   }
 `;
 export const IndexVideoImg = styled.img`

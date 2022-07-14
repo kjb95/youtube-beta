@@ -24,11 +24,11 @@ function loadPlaylist(data, checkboxChange) {
     return <li key={playlistElement.id}>
       <PlaylistElement
         playlistName={playlistName}
-        youtubeId={playlistElement.id}
-        videoImg={playlistElement.img}
-        videoTitle={playlistElement.title}
-        yotuber={playlistElement.youtuber}
-        videoInformation={playlistElement.information}
+        id={playlistElement.id}
+        title={playlistElement.title}
+        channelTitle={playlistElement.channelTitle}
+        viewCount={playlistElement.viewCount}
+        publishedAt={playlistElement.publishedAt}
         checkboxChange={checkboxChange}
       />
     </li>

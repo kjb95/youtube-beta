@@ -7,21 +7,21 @@ import {
 } from "../../style/styled_component/index";
 
 const IndexVideoElement = ({
-  youtubeId,
-  videoImg,
-  videoTitle,
-  yotuber,
-  videoInformation,
+  id,
+  title,
+  channelTitle,
+  viewCount,
+  publishedAt
 }) => {
-  const youtbeAddress = `/video_play?page=${youtubeId}`;
-  const videoImgAddress = `./img/${videoImg}`;
+  const youtbeAddress = `/video_play?page=${id}`;
+  const videoImgAddress = `https://img.youtube.com/vi/${id}/mqdefault.jpg`
 
   return (
     <a href={youtbeAddress}>
       <IndexVideoImg src={videoImgAddress} alt="video_img" />
-      <PlaylistTitleBox>{videoTitle}</PlaylistTitleBox>
-      <PlaylistYoutuberBox>{yotuber}</PlaylistYoutuberBox>
-      <PlaylistInformationBox>{videoInformation}</PlaylistInformationBox>
+      <PlaylistTitleBox>{title}</PlaylistTitleBox>
+      <PlaylistYoutuberBox>{channelTitle}</PlaylistYoutuberBox>
+      <PlaylistInformationBox>조회수 {viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
     </a>
   );
 };

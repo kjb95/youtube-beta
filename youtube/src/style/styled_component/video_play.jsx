@@ -121,9 +121,7 @@ export const PlaylistModifyButtonImg = styled.img`
   width: 15%;
 `;
 export const PlaylistRandomButtonImg = styled(PlaylistModifyButtonImg)`
-  & > * {
-    opacity: 0.4;
-  }
+  opacity: ${props => props.isRandom === 'true' ? 1 : 0.4};
 `;
 export const PlaylistAnchorBox = styled.div`
   & a {
