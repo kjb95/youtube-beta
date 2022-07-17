@@ -12,7 +12,7 @@ const AddPlaylistModal = ({
   setSequentialPlaylist,
   setRandomPlaylist,
 }) => {
-  const [id, setId] = useState();
+  const [id, setId] = useState('');
 
   return (
     <Modal

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const getJsonPlaylist = (data) => {
   if (!data)
@@ -83,7 +85,7 @@ export async function getYoutubeData(id) {
     publishedAt: data1.publishedAt,
     viewCount: data2.statistics.viewCount,
     subscriberCount: data3.statistics.subscriberCount,
-    isExist: true
+    exist: true
   }
 }
 

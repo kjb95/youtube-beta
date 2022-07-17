@@ -1,4 +1,5 @@
-import { getYoutubeData } from "../common";
+import { getYoutubeData } from "../common.js";
+import axios from 'axios';
 
 export const inputChange = (event, setId) => {
   setId(event.target.value);
@@ -15,11 +16,11 @@ export const addPlaylist = async (
   const randomPlaylist = window.localStorage.getItem("randomPlaylist");
   const parsedSequentialPlaylist = JSON.parse(sequentialPlaylist);
   const parsedRandomPlaylist = JSON.parse(randomPlaylist);
+  const playlist = await getYoutubeData(id);
 
-  const youtubeData = await getYoutubeData(id);
-
-  parsedSequentialPlaylist.push(youtubeData);
-  parsedRandomPlaylist.push(youtubeData);
+  await axios.post('/api/playlist', playlist);
+  parsedSequentialPlaylist.push(playlist);
+  parsedRandomPlaylist.push(playlist);
 
   window.localStorage.setItem(
     "sequentialPlaylist",

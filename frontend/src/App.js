@@ -9,8 +9,6 @@ import {
 
 import Index from "./pages/index";
 import VideoPlay from "./pages/video_play";
-import Test from "./pages/Test";
-import Test2 from "./pages/Test2";
 
 function App() {
   return (
@@ -27,10 +25,6 @@ function App() {
             </ShowPlaylistBox>
           }
         />
-
-        <Route path="/test" element={<Test/>}/>
-        <Route path="/test2" element={<Test2/>}/>
-
       </Routes>
     </BrowserRouter>
   );

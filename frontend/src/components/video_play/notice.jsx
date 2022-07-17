@@ -1,7 +1,7 @@
 import React from "react";
 import NoticeElement from './notice_element';
 
-import { getCookie } from '../../service/common';
+import { getCookie } from '../../service/common.js';
 
 const Notice = ({notice, isNoticeClose, noticeClose, clickDoNotSeeToday}) => {
   return notice.map((data, index) => {

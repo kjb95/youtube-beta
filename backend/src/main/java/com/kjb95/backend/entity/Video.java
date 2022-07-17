@@ -1,9 +1,11 @@
 package com.kjb95.backend.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,24 +15,25 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Video {
     @Id
-    private Long id;
+    private String id;
 
     @Column
     private String channelId;
     @Column
     private String channelTitle;
-    @Column
+    @Column(length = 10000)
     private String description;
     @Column
     private String title;
     @Column
-    private String publishedAt;
+    private LocalDateTime publishedAt;
     @Column
-    private String viewCount;
+    private Long viewCount;
     @Column
-    private String subscriberCount;
+    private Long subscriberCount;
     @Column
     private boolean isExist;
 }

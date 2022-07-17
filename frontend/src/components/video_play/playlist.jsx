@@ -15,7 +15,8 @@ function loadPlaylist(data, checkboxChange) {
   let url = new URL(window.location.href);
 
   return data.map((playlistElement) => {
-    if (!playlistElement.isExist) return "";
+
+    if (!playlistElement.exist) return "";
 
     let playlistName = "playlist";
     if (url.searchParams.get("page") === playlistElement.id)

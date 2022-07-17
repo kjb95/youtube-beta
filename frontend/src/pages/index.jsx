@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 import "../style/css/common.css";
 
-import { getJsonPlaylist } from "../service/common";
 import { IndexVideoMain } from "../style/styled_component/index";
-
 import IndexVideoElement from "../components/index/index_video_element";
-import { getYoutubeDataList } from "../service/common";
+import {getJsonPlaylist} from "../service/common.js";
 
 const Index = () => {
   const [playlist, setPlaylist] = useState(undefined);
 
   useEffect(() => {
-    getYoutubeDataList().then((res) => {
-      setPlaylist(getJsonPlaylist(res)[0]);
-    });
+     // window.localStorage.clear();
+    axios.get('api/playlist')
+      .then(res => {
+        setPlaylist(getJsonPlaylist(res.data)[0]);
+      });
   }, []);
 
   if (!playlist) return "";
@@ -22,7 +23,7 @@ const Index = () => {
   return (
     <IndexVideoMain>
       {playlist.map((playlist) => {
-        if (!playlist.isExist)
+        if (playlist.exist !== true)
           return '';
         return <li key={playlist.id}>
           <IndexVideoElement

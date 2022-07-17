@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "../common";
+import { getCookie, setCookie } from "../common.js";
 
 export const viewMore = (viewMoreRef, descriptionRef, brieflyRef) => {
   viewMoreRef.current.style.display = 'none';

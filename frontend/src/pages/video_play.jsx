@@ -2,12 +2,13 @@
 import { useLocation } from "react-router";
 import ReactPlayer from "react-player";
 import qs from "qs";
+import axios from 'axios';
 
 import {
   fetchNotice,
   getJsonPlaylist,
   setPlaylist,
-} from "../service/common";
+} from "../service/common.js";
 import {
   viewMore,
   briefly,
@@ -43,7 +44,6 @@ import {
   PlayingVideoDiscriptionViewMore,
   PlayingVideoDescriptionBriefly,
 } from "../style/styled_component/video_play";
-import { getYoutubeDataList } from "../service/common";
 
 const VideoPlay = () => {
   // window.localStorage.clear();
@@ -67,17 +67,20 @@ const VideoPlay = () => {
 
   useEffect(() => {
     //  window.localStorage.clear();
-    getYoutubeDataList().then((res) => {
-      const jsonPlaylist = getJsonPlaylist(res);
+    axios.get('api/playlist')
+      .then((res) => {
+      const jsonPlaylist = getJsonPlaylist(res.data);
       setSequentialPlaylist(jsonPlaylist[0]);
       setRandomPlaylist(jsonPlaylist[1]);
     });
     fetchNotice().then((data) => setNotice(data));
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    getYoutubeDataList().then((res) => {
-      const jsonPlaylist = getJsonPlaylist(res);
+    axios.get('api/playlist')
+      .then((res) => {
+      const jsonPlaylist = getJsonPlaylist(res.data);
       setPlaylist(jsonPlaylist, query.page, setCurrentPlaylist, setNextPlaylist);
     });
   }, [sequentialPlaylist, randomPlaylist, query.page])

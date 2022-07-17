@@ -6,11 +6,11 @@ export const deletePlayList = (checkboxs, setSequentialPlaylist, setRandomPlayli
   
   parsedSequentialPlaylist.forEach(pl => {
     if(checkboxs[pl.id] && checkboxs[pl.id] === true)
-      pl.isExist = false;
+      pl.exist = false;
   })
   parsedRandomPlaylist.forEach(pl => {
     if (checkboxs[pl.id] && checkboxs[pl.id] === true)
-      pl.isExist = false;
+      pl.exist = false;
   });
 
   window.localStorage.setItem(
