@@ -1,4 +1,4 @@
-          import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import ReactPlayer from "react-player";
 import qs from "qs";
@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import {
   fetchNotice,
-  getJsonPlaylist,
   setPlaylist,
 } from "../service/common.js";
 import {
@@ -60,6 +59,8 @@ const VideoPlay = () => {
   const [isNoticeClose, setIsNoticeClose] = useState();
   const [currentPlaylist, setCurrentPlaylist] = useState(undefined);
   const [nextPlaylist, setNextPlaylist] = useState(undefined);
+  const [random, setRandom] = useState(false);
+  const [playlistDataUpdate, setPlaylistUpdate] = useState(0);
 
   const viewMoreRef = useRef();
   const brieflyRef = useRef();
@@ -67,23 +68,27 @@ const VideoPlay = () => {
 
   useEffect(() => {
     //  window.localStorage.clear();
-    axios.get('api/playlist')
-      .then((res) => {
-      const jsonPlaylist = getJsonPlaylist(res.data);
-      setSequentialPlaylist(jsonPlaylist[0]);
-      setRandomPlaylist(jsonPlaylist[1]);
-    });
+    axios.get('api/playlist').then(res => setSequentialPlaylist(res.data));
+    axios.get('api/playlist/random').then(res => setRandomPlaylist(res.data));
     fetchNotice().then((data) => setNotice(data));
-    // eslint-disable-next-line
-  }, []);
+
+    const isRandom = localStorage.getItem('isRandom');
+    if (isRandom === 'true')
+      setRandom(true);
+    else
+      setRandom(false);
+  }, [addPlaylistModal, playlistDataUpdate]);
 
   useEffect(() => {
-    axios.get('api/playlist')
-      .then((res) => {
-      const jsonPlaylist = getJsonPlaylist(res.data);
-      setPlaylist(jsonPlaylist, query.page, setCurrentPlaylist, setNextPlaylist);
-    });
-  }, [sequentialPlaylist, randomPlaylist, query.page])
+    if (!sequentialPlaylist || !randomPlaylist)
+      return ;
+    if (random)
+      setPlaylist(sequentialPlaylist, query.page, setCurrentPlaylist, setNextPlaylist);
+    else
+      setPlaylist(randomPlaylist, query.page, setCurrentPlaylist, setNextPlaylist);
+
+  }, [sequentialPlaylist, randomPlaylist, query.page, random])
+
 
   if (!sequentialPlaylist || !randomPlaylist || !notice || !currentPlaylist)
     return "";
@@ -103,14 +108,14 @@ const VideoPlay = () => {
         <PlaylistModifyButtonsSection>
           <input type="hidden" id="isRandom" value="false" />
           <RandomButton
-            setSequentialPlaylist={setSequentialPlaylist}
-            setRandomPlaylist={setRandomPlaylist}
+            playlistDataUpdate={playlistDataUpdate}
+            setPlaylistUpdate={setPlaylistUpdate}
           />
           <AddButton setAddPlaylistModal={setAddPlaylistModal} />
           <DeleteButton
             checkboxs={checkboxs}
-            setSequentialPlaylist={setSequentialPlaylist}
-            setRandomPlaylist={setRandomPlaylist}
+            playlistDataUpdate={playlistDataUpdate}
+            setPlaylistUpdate={setPlaylistUpdate}
           />
         </PlaylistModifyButtonsSection>
       </aside>
@@ -119,8 +124,6 @@ const VideoPlay = () => {
         <AddPlaylistModal
           addPlaylistModal={addPlaylistModal}
           setAddPlaylistModal={setAddPlaylistModal}
-          setSequentialPlaylist={setSequentialPlaylist}
-          setRandomPlaylist={setRandomPlaylist}
         />
         {!isNoticeAllClose(notice, isNoticeClose) && ( // 공지사항이 모두 닫히지 않았다면
           <NoticeBox id="notice">

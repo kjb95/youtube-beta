@@ -9,8 +9,6 @@ import {inputChange, addPlaylist, closeModal} from '../../service/vide_play/add_
 const AddPlaylistModal = ({
   addPlaylistModal,
   setAddPlaylistModal,
-  setSequentialPlaylist,
-  setRandomPlaylist,
 }) => {
   const [id, setId] = useState('');
 
@@ -36,8 +34,6 @@ const AddPlaylistModal = ({
             addPlaylist(
               id,
               setAddPlaylistModal,
-              setSequentialPlaylist,
-              setRandomPlaylist,
               setId
             );
           }}/>

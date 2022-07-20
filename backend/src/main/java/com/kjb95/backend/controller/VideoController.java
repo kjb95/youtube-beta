@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +26,19 @@ public class VideoController {
     public List<VideoDto> getPlaylist() {
         return this.videoService.getPlaylist();
     }
-
     @PostMapping("/api/playlist")
     public void addPlaylist(@RequestBody Map<String,Object> playlist) {
         videoService.addPlaylist(playlist);
     }
+    @DeleteMapping("/api/playlist")
+    public boolean deletePlaylist(@RequestBody Map<String,Object> playlistIds) {
+        videoService.deletePlaylist(playlistIds);
+        return true;
+    }
+
+    @GetMapping("/api/playlist/random")
+    public List<VideoDto> getRandomPlaylist() {
+        return this.videoService.getRandomPlaylist();
+    }
+
 }

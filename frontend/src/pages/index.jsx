@@ -5,17 +5,13 @@ import "../style/css/common.css";
 
 import { IndexVideoMain } from "../style/styled_component/index";
 import IndexVideoElement from "../components/index/index_video_element";
-import {getJsonPlaylist} from "../service/common.js";
 
 const Index = () => {
   const [playlist, setPlaylist] = useState(undefined);
 
   useEffect(() => {
      // window.localStorage.clear();
-    axios.get('api/playlist')
-      .then(res => {
-        setPlaylist(getJsonPlaylist(res.data)[0]);
-      });
+    axios.get('api/playlist').then(res => setPlaylist(res.data));
   }, []);
 
   if (!playlist) return "";

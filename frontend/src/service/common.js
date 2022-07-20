@@ -2,33 +2,11 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const getJsonPlaylist = (data) => {
-  if (!data)
-    return null;
-  let sequentialPlaylist = window.localStorage.getItem("sequentialPlaylist");
-  let randomPlaylist = window.localStorage.getItem("randomPlaylist");
-
-  if (sequentialPlaylist === null) {
-    sequentialPlaylist = JSON.stringify(data);
-    randomPlaylist = JSON.stringify(data);
-    window.localStorage.setItem("sequentialPlaylist", JSON.stringify(data));
-    window.localStorage.setItem("randomPlaylist", JSON.stringify(data));
-  }
-
-  const parsedSequentialPlaylist = JSON.parse(sequentialPlaylist);
-  const parsedRandomPlaylist = JSON.parse(randomPlaylist);
-  return [parsedSequentialPlaylist, parsedRandomPlaylist];
-}
-
-export const setPlaylist = (jsonPlaylist, page, setCurrentPlaylist, setNextPlaylist) => {
+export const setPlaylist = (playlist, page, setCurrentPlaylist, setNextPlaylist) => {
   let findCurrentPlaylist = false;
-  const isRandom = window.localStorage.getItem('isRandom');
-  let playlist = jsonPlaylist[0];
-  if (isRandom === 'true')
-    playlist = jsonPlaylist[1];
 
   for(let i=0; i<playlist.length; i++) {
-    if (findCurrentPlaylist === true){
+    if (findCurrentPlaylist === true && playlist[i].exist){
       setNextPlaylist(playlist[i]);
       break ;
     }
@@ -41,8 +19,8 @@ export const setPlaylist = (jsonPlaylist, page, setCurrentPlaylist, setNextPlayl
 
 export const fetchNotice = async () => {
   return await fetch('/json/notice.json')
-  .then((response) => response.json())
-  .then(data => data.notices);
+    .then((response) => response.json())
+    .then(data => data.notices);
 }
 
 export const setCookie = (name, value, expire) => {
@@ -98,12 +76,11 @@ async function fetchPlaylist() {
 export async function getYoutubeDataList() {
   let playlist = [];
 
-  await fetchPlaylist()
-    .then(data => {
-      data.forEach(data => {
-        playlist.push(getYoutubeData(data.id));
-      })
-    });
+  await fetchPlaylist().then(data => {
+    data.forEach(data => {
+      playlist.push(getYoutubeData(data.id));
+    })
+  });
   
   return await Promise.all(playlist);
 

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +65,34 @@ public class VideoService {
     
     public List<VideoDto> getPlaylist() {
         List<VideoDto> videoDtoList = new ArrayList();
-        videoRepository.findAll().forEach(video -> videoDtoList.add(videoToVideoDto(video)));
+        List<Video> videoList = videoRepository.findAll();
+        for(int i=0; i<videoList.size(); i++)
+            videoDtoList.add(videoToVideoDto(videoList.get(i)));
         return videoDtoList;
+    }
+
+    private List<VideoDto> combineVideoDtoList(List<VideoDto> videoDtoList) {
+        for(int i=0; i<videoDtoList.size(); i++) {
+            VideoDto temp = videoDtoList.get(i);
+            int randomNumber = (int)(Math.random() * videoDtoList.size());
+            videoDtoList.set(i, videoDtoList.get(randomNumber));
+            videoDtoList.set(randomNumber, temp);
+        }
+        return videoDtoList;
+    }
+
+    public List<VideoDto> getRandomPlaylist() {
+        List<VideoDto> videoDtoList = new ArrayList();
+        videoRepository.findAll().forEach(video -> videoDtoList.add(videoToVideoDto(video)));
+        return combineVideoDtoList(videoDtoList);
+    }
+
+    public void deletePlaylist(@RequestBody Map<String,Object> playlistIds) {
+        videoRepository.findAll().forEach(video -> {
+            if (playlistIds.get(video.getId()) == null)
+                return ;
+            video.setExist(false);
+            videoRepository.save(video);
+        });
     }
 }
