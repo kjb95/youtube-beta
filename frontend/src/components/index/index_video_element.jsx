@@ -21,7 +21,7 @@ const IndexVideoElement = ({
       <IndexVideoImg src={videoImgAddress} alt="video_img" />
       <PlaylistTitleBox>{title}</PlaylistTitleBox>
       <PlaylistYoutuberBox>{channelTitle}</PlaylistYoutuberBox>
-      <PlaylistInformationBox>조회수 {viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
+      <PlaylistInformationBox>{viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
     </a>
   );
 };

@@ -31,9 +31,9 @@ public class Video {
     @Column
     private LocalDateTime publishedAt;
     @Column
-    private Long viewCount;
+    private long viewCount;
     @Column
-    private Long subscriberCount;
+    private long subscriberCount;
     @Column
     private boolean isExist;
 }

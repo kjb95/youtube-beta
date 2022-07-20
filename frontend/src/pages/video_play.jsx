@@ -156,7 +156,7 @@ const VideoPlay = () => {
         <PlayingVideoDiscriptionSection1>
           <PlayingVideoTitleBox>{currentPlaylist.title}</PlayingVideoTitleBox>
           <PlayingVideoInformationBox>
-            조회수 {currentPlaylist.viewCount} ⦁ {currentPlaylist.publishedAt}
+            {currentPlaylist.viewCount} ⦁ {currentPlaylist.publishedAt}
           </PlayingVideoInformationBox>
         </PlayingVideoDiscriptionSection1>
 
@@ -165,7 +165,7 @@ const VideoPlay = () => {
             {currentPlaylist.channelTitle}
           </PlayingVideoYoutuberBox>
           <PlayingVideoSubscriberBox>
-            구독자 {currentPlaylist.subscriberCount}명
+            {currentPlaylist.subscriberCount}
           </PlayingVideoSubscriberBox>
         </PlayingVideoDiscriptionSection2>
 

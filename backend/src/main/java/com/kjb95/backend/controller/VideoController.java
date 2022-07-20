@@ -1,6 +1,6 @@
 package com.kjb95.backend.controller;
 
-import com.kjb95.backend.entity.Video;
+import com.kjb95.backend.dto.VideoDto;
 import com.kjb95.backend.service.VideoService;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +22,7 @@ public class VideoController {
     }
 
     @GetMapping("/api/playlist")
-    public List<Video> getPlaylist() {
+    public List<VideoDto> getPlaylist() {
         return this.videoService.getPlaylist();
     }
 

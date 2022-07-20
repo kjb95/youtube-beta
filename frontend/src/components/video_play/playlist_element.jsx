@@ -36,7 +36,7 @@ const PlaylistElement = ({
         <div>
           <PlaylistTitleBox>{title}</PlaylistTitleBox>
           <PlaylistYoutuberBox>{channelTitle}</PlaylistYoutuberBox>
-          <PlaylistInformationBox>조회수 {viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
+          <PlaylistInformationBox>{viewCount} ⦁ {publishedAt}</PlaylistInformationBox>
         </div>
       </a>
     </PlaylistAnchorBox>
