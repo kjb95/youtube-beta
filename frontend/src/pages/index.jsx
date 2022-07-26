@@ -11,7 +11,8 @@ const Index = () => {
 
   useEffect(() => {
      // window.localStorage.clear();
-    axios.get('api/playlist').then(res => setPlaylist(res.data));
+    axios.get('http://localhost:8080/api/playlist')
+      .then(res => setPlaylist(res.data));
   }, []);
 
   if (!playlist) return "";

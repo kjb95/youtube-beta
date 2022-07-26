@@ -68,8 +68,8 @@ const VideoPlay = () => {
 
   useEffect(() => {
     //  window.localStorage.clear();
-    axios.get('api/playlist').then(res => setSequentialPlaylist(res.data));
-    axios.get('api/playlist/random').then(res => setRandomPlaylist(res.data));
+    axios.get('http://localhost:8080/api/playlist').then(res => setSequentialPlaylist(res.data));
+    axios.get('http://localhost:8080/api/playlist/random').then(res => setRandomPlaylist(res.data));
     fetchNotice().then((data) => setNotice(data));
 
     const isRandom = localStorage.getItem('isRandom');
