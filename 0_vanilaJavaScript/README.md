@@ -33,6 +33,3 @@ https://user-images.githubusercontent.com/107471786/173803544-751b4aae-cd40-4878
 ### 다음 플레이 리스트 진행
 https://user-images.githubusercontent.com/107471786/173803586-6d7f7069-4ce0-40ed-8ef3-e722010dff7e.mov
 - 유튜브 API를 이용하여 동영상이 종료되면 다음 플레이 리스트를 자동 재생
-
-## 코드
-https://github.com/kjb95/youtube_page

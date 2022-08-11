@@ -1,13 +1,3 @@
-## 관련 프로젝트
-#### 유튜브 웹페이지 만들기1 (Vanila JavaScript)
-블로그 : https://velog.io/@kjb95/%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%A7%8C%EB%93%A4%EA%B8%B0
-
-깃허브 : https://github.com/kjb95/youtube
-#### 유튜브 웹페이지 만들기2 (React)
-블로그 : https://velog.io/@kjb95/%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%A7%8C%EB%93%A4%EA%B8%B02
-
-깃허브 : https://github.com/kjb95/youtube_react
-
 ## 기술스택
 - HTML
 - CSS
@@ -33,6 +23,3 @@
 https://user-images.githubusercontent.com/107471786/180921548-ae770889-701f-4dcb-b76b-da30a1a2441a.mov
 
 (컴포즈 업 명령어를 이미 백그라운드로 실행시켜 둔 상태)
-
-## 코드
-https://github.com/kjb95/youtube_react_spring
