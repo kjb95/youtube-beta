@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/video_play.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/playlist.css">
+    <link rel="stylesheet" type="text/css" href="../css/notice.css">
+    <title>Youtube</title>
+</head>
+
+<body>
+    <aside>
+        <section id="playlists"></section>
+        <section id="playlistsButton">
+            <input type="hidden" id="isRandom" value="false">
+            <img id="randomButton" src="../img/randomButton.png">
+            <img id="addButton" src="../img/addButton.png">
+            <img id="deleteButton" src="../img/deleteButton.png">
+        </section>
+    </aside>
+    <main id="video">
+        <section id="notice"></section>
+        <section id="youtubePlayer"></section>
+        <section>
+            <div id="videoTitle"></div><br>
+            <div id="videoInformation"></div><br>
+        </section>
+        <section id="youtuberInformation"><br>
+            <div id="youtuber"></div><br>
+            <div id="subscriber"></div><br>
+            <div id="videoDescription"></div><br>
+            <div id="viewMore"></div>
+            <div id="briefly"></div><br>
+        </section>
+    </main>
+    <footer>
+        <script type="text/javascript" src="../js/youtube_API.js"></script>
+        <script type="text/javascript" src="../js/video_play.js"></script>
+        <script type="text/javascript" src="../js/playlist.js"></script>
+        <script type="text/javascript" src="../js/notice.js"></script>
+    </footer>
+</body>
+
+</html>

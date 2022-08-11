@@ -1,0 +1,17 @@
+#playlists {
+  height: 70vh;
+}
+
+#addButton,
+#deleteButton,
+#randomButton {
+  width: 15%;
+}
+
+#randomButton {
+  opacity: 0.4;
+}
+
+.video_img {
+  width: 40%;
+}

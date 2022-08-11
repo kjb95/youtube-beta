@@ -1,0 +1,11 @@
+#videos {
+  flex-wrap: wrap;
+}
+
+.video {
+  padding: 10px;
+}
+
+.video_img {
+  width: 400px;
+}
